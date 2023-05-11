@@ -34,7 +34,33 @@
 	// "postCreateCommand": "cat /etc/os-release",
 
 	// Configure tool-specific properties.
-	"customizations": {"vscode":{"extensions": ["ms-vsliveshare.vsliveshare"]}},
+	"customizations": {
+		"vscode": {
+		  "extensions": ["editorconfig.editorconfig", "dbaeumer.vscode-eslint", "esbenp.prettier-vscode","ms-vsliveshare.vsliveshare"],
+		  "settings": {
+			"editor.defaultFormatter": null,
+			"editor.formatOnSave": true,
+			"editor.rulers": [120],
+			"eslint.nodePath": "./frontend/portfolio/node_modules",
+			"eslint.run": "onType",
+			"eslint.options": {
+			  "overrideConfigFile": "./frontend/portfolio/.eslintrc.json"
+			},
+			"[javascript]": {
+			  "editor.formatOnSave": true,
+			  "editor.defaultFormatter": "esbenp.prettier-vscode"
+			},
+			"[typescript]": {
+			  "editor.formatOnSave": true,
+			  "editor.defaultFormatter": "esbenp.prettier-vscode"
+			},
+			"[typescriptreact]": {
+			  "editor.formatOnSave": true,
+			  "editor.defaultFormatter": "esbenp.prettier-vscode"
+			}
+		  }
+		}
+	  }
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
