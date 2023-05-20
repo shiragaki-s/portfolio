@@ -12,7 +12,7 @@ type Props = {
 export const DateCell = ({ date }: Props) => {
   const ref = useRef<HTMLElement>();
   const { isHover } = useHoverState(ref);
-  const { open, setOpen, onClickRegistModal } = useRegistModal();
+  const { open, setRegistModalOpen, onClickRegistModal } = useRegistModal();
 
   return (
     <Box ref={ref} border={"solid"} width={"150px"} height={"150px"}>
@@ -25,7 +25,10 @@ export const DateCell = ({ date }: Props) => {
         {isHover && (
           <RegistModalButton onClickRegistModal={onClickRegistModal} />
         )}
-        <ScheduleRegisterModal open={open} handleClose={() => setOpen(false)} />
+        <ScheduleRegisterModal
+          open={open}
+          handleClose={() => setRegistModalOpen(false)}
+        />
       </Box>
     </Box>
   );

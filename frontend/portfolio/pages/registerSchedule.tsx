@@ -1,5 +1,5 @@
-import { RegisterSchedule } from "@/components/Schedule/RegisterSchedule";
+import { RegisterSchedule } from "@/components/RegisterSchedule/RegisterSchedule";
 
 export default function registerSchedule() {
-  return <RegisterSchedule />;
+  return <RegisterSchedule />
 }

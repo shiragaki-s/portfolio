@@ -21,9 +21,9 @@ export const useHoverState = (
 };
 
 export const useRegistModal = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setRegistModalOpen] = useState(false);
   const onClickRegistModal = () => {
-    setOpen(true);
+    setRegistModalOpen(true);
   };
-  return { open, setOpen, onClickRegistModal };
+  return { open, setRegistModalOpen, onClickRegistModal };
 };

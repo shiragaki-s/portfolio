@@ -6,8 +6,10 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import { RegisterSchedule } from "../Schedule/RegisterSchedule";
+import { RegisterSchedule } from "../RegisterSchedule/RegisterSchedule";
 type Props = {
   open: boolean;
   handleClose: () => void;
@@ -15,8 +17,14 @@ type Props = {
 
 export const ScheduleRegisterModal = ({ open, handleClose }: Props) => {
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Subscribe</DialogTitle>
+    <Dialog
+      fullWidth
+      maxWidth={"sm"}
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="responsive-dialog-title"
+    >
+      <DialogTitle>スケジュール登録</DialogTitle>
       <DialogContent>
         <RegisterSchedule />
       </DialogContent>

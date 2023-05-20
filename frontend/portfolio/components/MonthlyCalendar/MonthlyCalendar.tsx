@@ -54,12 +54,6 @@ export const MonthlyCalendar = (props: Props) => {
         ))}
         <CalendarSpace dayWeek={Number(date.startOf("M").format("d"))} />
         {dateList.map((date, index) => (
-          // <Box border={"solid"} key={index} width={"150px"} height={"150px"}>
-          //   {data.date()}
-          //   <IconButton>
-          //     <AddIcon />
-          //   </IconButton>
-          // </Box>
           <Box key={index}>
             <DateCell date={date} />
           </Box>
