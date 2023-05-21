@@ -10,12 +10,14 @@ import {
   useTheme,
 } from "@mui/material";
 import { RegisterSchedule } from "../RegisterSchedule/RegisterSchedule";
+import { Dayjs } from "dayjs";
 type Props = {
   open: boolean;
   handleClose: () => void;
+  date:Dayjs,
 };
 
-export const ScheduleRegisterModal = ({ open, handleClose }: Props) => {
+export const ScheduleRegisterModal = ({ open, handleClose, date }: Props) => {
   return (
     <Dialog
       fullWidth
@@ -26,7 +28,7 @@ export const ScheduleRegisterModal = ({ open, handleClose }: Props) => {
     >
       <DialogTitle>スケジュール登録</DialogTitle>
       <DialogContent>
-        <RegisterSchedule />
+        <RegisterSchedule handleClose={handleClose} date={date} />
       </DialogContent>
       <DialogActions>
         {/* <Button onClick={handleClose}>Cancel</Button>

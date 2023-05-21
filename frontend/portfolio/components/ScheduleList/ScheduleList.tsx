@@ -30,6 +30,7 @@ export const ScheduleList = () => {
           <TableRow>
             <TableCell></TableCell>
             <TableCell>予定日</TableCell>
+            <TableCell>時間</TableCell>
             <TableCell>タイトル</TableCell>
             <TableCell>会社名</TableCell>
             <TableCell>転職サイト</TableCell>
@@ -46,7 +47,8 @@ export const ScheduleList = () => {
             >
 
               <TableCell>{schedule.id}</TableCell>
-              <TableCell>{schedule.date.format()}</TableCell>
+              <TableCell>{schedule.date.format("YYYY/MM/DD")}</TableCell>
+              <TableCell>{schedule.time}</TableCell>
               <TableCell>{schedule.title}</TableCell>
               <TableCell>{schedule.company.name}</TableCell>
               <TableCell>{schedule.jobChangeSite.name}</TableCell>

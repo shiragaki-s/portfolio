@@ -28,6 +28,7 @@ export const DateCell = ({ date }: Props) => {
         <ScheduleRegisterModal
           open={open}
           handleClose={() => setRegistModalOpen(false)}
+          date={date}
         />
       </Box>
     </Box>
