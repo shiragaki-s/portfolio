@@ -16,14 +16,14 @@ type Props = {
   setNewSchedule: (schedule: Schedule) => void;
   onSubmitHandle: () => void;
   handleClose: () => void;
-  initSchedule: () => void;
+  initScheduleForm: () => void;
 };
 export const ScheduleForm = ({
   schedule,
   setNewSchedule,
   onSubmitHandle,
   handleClose,
-  initSchedule,
+  initScheduleForm,
 }: Props) => {
   return (
     <Box component="form" noValidate autoComplete="off">
@@ -173,7 +173,7 @@ export const ScheduleForm = ({
             variant="outlined"
             sx={{ width: 100, padding: 1, margin: 2 }}
             onClick={() => {
-              initSchedule();
+              initScheduleForm();
               handleClose();
             }}
           >

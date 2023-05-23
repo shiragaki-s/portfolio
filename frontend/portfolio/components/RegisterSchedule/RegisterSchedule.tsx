@@ -35,7 +35,7 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
     console.log(newSchedule);
     console.log("新規登録処理の呼び出し");
   };
-  const initSchedule = () => {
+  const initScheduleForm = () => {
     setNewSchedule(defaultSchedule);
   };
 
@@ -45,7 +45,7 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
       setNewSchedule={setNewSchedule}
       handleClose={handleClose}
       onSubmitHandle={onSubmitHandle}
-      initSchedule={initSchedule}
+      initScheduleForm={initScheduleForm}
     />
   );
 };
