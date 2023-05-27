@@ -1,4 +1,3 @@
-import { AlternateEmail } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -11,18 +10,39 @@ import {
 import { useState } from "react";
 import { useEditModal, useScheduleList } from "./ScheduleList.hooks";
 import { EditScheduleModal } from "../EditScheduleModal/EditScheduleModal";
+import dayjs, { Dayjs } from "dayjs";
+import { Schedule } from "@/types";
 
 export const ScheduleList = () => {
+  const defaultSchedule: Schedule = {
+    id: "",
+    title: "",
+    date: dayjs(),
+    time: dayjs(),
+    company: {
+      name: "",
+      url: "",
+      interestFeatures: "",
+    },
+    jobChangeSite: {
+      name: "",
+      url: "",
+    },
+    desiredLevel: 0,
+    remarks: "",
+  };
+  const { schedules, setSchedules } = useScheduleList();
   const [displayFlg, setDisplayFlg] = useState(false);
   const [displayKey, setDisplayKey] = useState("");
   const [deleteKey, setDeleteKey] = useState("");
   const { open, setEditModalOpen, onClickEditModal } = useEditModal();
-  const {schedules} = useScheduleList()
+  const [targetSchedule, setTargetSchedule] =
+    useState<Schedule>(defaultSchedule);
   const onClickDelete = () => {
     // setScheduleList(
     //   scheduleList.filter((schedule) => deleteKey !== schedule.id)
     // );
-  }
+  };
   return (
     <Box display={"flex"}>
       <Table>
@@ -45,10 +65,9 @@ export const ScheduleList = () => {
                 setDisplayKey(schedule.id);
               }}
             >
-
               <TableCell>{schedule.id}</TableCell>
               <TableCell>{schedule.date.format("YYYY/MM/DD")}</TableCell>
-              <TableCell>{schedule.time}</TableCell>
+              <TableCell>{schedule.time.format("HH:mm")}</TableCell>
               <TableCell>{schedule.title}</TableCell>
               <TableCell>{schedule.company.name}</TableCell>
               <TableCell>{schedule.jobChangeSite.name}</TableCell>
@@ -61,7 +80,7 @@ export const ScheduleList = () => {
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    alert("編集");
+                    setTargetSchedule(schedule);
                     onClickEditModal();
                   }}
                 >
@@ -92,6 +111,7 @@ export const ScheduleList = () => {
       <EditScheduleModal
         open={open}
         handleClose={() => setEditModalOpen(false)}
+        targetSchedule={targetSchedule}
       />
     </Box>
   );

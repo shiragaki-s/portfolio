@@ -41,11 +41,12 @@ export const ScheduleForm = ({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label="時間"
-            value={schedule.time}
+            defaultValue={schedule.time}
             onChange={(value) => {
               if (value !== null) {
-                schedule.time = dayjs(value).format("HH時MM分");
-                setNewSchedule(schedule);
+                // schedule.time = value;
+                const newSchedule = { ...schedule, time: value };
+                setNewSchedule(newSchedule);
               }
               console.log(value);
             }}
@@ -60,8 +61,8 @@ export const ScheduleForm = ({
           size="small"
           defaultValue={schedule.title}
           onChange={(e) => {
-            schedule.title = e.target.value;
-            setNewSchedule(schedule);
+            const newSchedule = { ...schedule, title: e.target.value };
+            setNewSchedule(newSchedule);
           }}
         />
         <TextField
@@ -72,9 +73,11 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
+          defaultValue={schedule.company.name}
           onChange={(e) => {
-            schedule.company.name = e.target.value;
-            setNewSchedule(schedule);
+            const newCompany = { ...schedule.company, name: e.target.value };
+            const newSchedule = { ...schedule, company: newCompany };
+            setNewSchedule(newSchedule);
           }}
         />
         <TextField
@@ -85,9 +88,11 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
+          defaultValue={schedule.company.url}
           onChange={(e) => {
-            schedule.company.url = e.target.value;
-            setNewSchedule(schedule);
+            const newCompany = { ...schedule.company, url: e.target.value };
+            const newSchedule = { ...schedule, company: newCompany };
+            setNewSchedule(newSchedule);
           }}
         />
         <TextField
@@ -98,9 +103,17 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
+          defaultValue={schedule.jobChangeSite.name}
           onChange={(e) => {
-            schedule.jobChangeSite.name = e.target.value;
-            setNewSchedule(schedule);
+            const newJobChangeSite = {
+              ...schedule.jobChangeSite,
+              name: e.target.value,
+            };
+            const newSchedule = {
+              ...schedule,
+              jobChangeSite: newJobChangeSite,
+            };
+            setNewSchedule(newSchedule);
           }}
         />
         <TextField
@@ -111,9 +124,17 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
+          defaultValue={schedule.jobChangeSite.url}
           onChange={(e) => {
-            schedule.jobChangeSite.url = e.target.value;
-            setNewSchedule(schedule);
+            const newJobChangeSite = {
+              ...schedule.jobChangeSite,
+              url: e.target.value,
+            };
+            const newSchedule = {
+              ...schedule,
+              jobChangeSite: newJobChangeSite,
+            };
+            setNewSchedule(newSchedule);
           }}
         />
         <TextField
@@ -126,19 +147,29 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
+          defaultValue={schedule.company.interestFeatures}
           onChange={(e) => {
-            schedule.company.interestFeatures = e.target.value;
-            setNewSchedule(schedule);
+            const newCompany = {
+              ...schedule.company,
+              interestFeatures: e.target.value,
+            };
+            const newSchedule = {
+              ...schedule,
+              company: newCompany,
+            };
+            setNewSchedule(newSchedule);
           }}
         />
         <label>希望度</label>
         <Rating
           name="simple-controlled"
-          defaultValue={schedule.desiredLevel}
+          value={schedule.desiredLevel}
           onChange={(_, newValue) => {
-            console.log(newValue);
-            schedule.desiredLevel = newValue ? newValue : 0;
-            setNewSchedule(schedule);
+            const newSchedule = {
+              ...schedule,
+              desiredLevel: newValue ? newValue : 0,
+            };
+            setNewSchedule(newSchedule);
           }}
         />
         <TextField
@@ -151,9 +182,10 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
+          defaultValue={schedule.remarks}
           onChange={(e) => {
-            schedule.remarks = e.target.value;
-            setNewSchedule(schedule);
+            const newSchedule = { ...schedule, remarks: e.target.value };
+            setNewSchedule(newSchedule);
           }}
         />
         <Box display={"flex"}>
