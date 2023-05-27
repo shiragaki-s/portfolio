@@ -4,6 +4,7 @@ export type Schedule = {
     id: string;
     title: string;
     date: Dayjs;
+    time: string;
     company: Company;
     jobChangeSite: JobChangeSite;
     desiredLevel: number;

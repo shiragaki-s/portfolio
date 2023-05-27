@@ -54,6 +54,7 @@ export default function updateComment() {
             <button
               onClick={() => {
                 setTargetData(data);
+                setTextComment(data.comment)
                 setIsOpen(true);
               }}
             >
@@ -78,14 +79,16 @@ export default function updateComment() {
         onClick={() => {
           const dataList = []
           updateDatas.map((data)=>{
-            if (textComment!==""&&targetData.id=== data.id){
-              data.comment=textComment
-            }
-            if (textComment===""&&targetData.id=== data.id&&targetData.comment!==""){
+            if (targetData.id=== data.id&&data.comment!== textComment){
               data.comment=textComment
             }
 
+            // if (textComment===""&&targetData.id!== data.id ){
+            //   data.comment=textComment
+            // }
+
             dataList.push(data)
+            console.log(dataList)
           })
           setUpdateDatas(dataList)
           setIsOpen(false);
