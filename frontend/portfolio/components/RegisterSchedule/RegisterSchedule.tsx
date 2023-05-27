@@ -14,7 +14,7 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
     id: "",
     title: "",
     date: date,
-    time: "",
+    time: date,
     company: {
       name: "",
       url: "",
