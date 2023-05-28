@@ -3,14 +3,22 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 export const useEditModal = () => {
-  const [open, setEditModalOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsopen] = useState(false);
   const onClickEditModal = () => {
-    setEditModalOpen(true);
+    setEditModalIsopen(true);
   };
-  return { open, setEditModalOpen, onClickEditModal };
+  return { editModalIsOpen, setEditModalIsopen, onClickEditModal };
 };
 
 export const useScheduleList = () => {
-  const [schedules, setSchedules] = useRecoilState(scheduleListState)
-  return {schedules, setSchedules}
-}
+  const [schedules, setSchedules] = useRecoilState(scheduleListState);
+  return { schedules, setSchedules };
+};
+
+export const useDeleteModal = () => {
+  const [deleteModalIsOpen, setDeleteModalIsopen] = useState(false);
+  const onClickDeleteModal = () => {
+    setDeleteModalIsopen(true);
+  };
+  return { deleteModalIsOpen, setDeleteModalIsopen, onClickDeleteModal };
+};

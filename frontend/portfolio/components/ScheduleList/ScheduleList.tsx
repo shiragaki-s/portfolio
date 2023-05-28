@@ -4,14 +4,21 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
 import { useState } from "react";
-import { useEditModal, useScheduleList } from "./ScheduleList.hooks";
+import {
+  useEditModal,
+  useScheduleList,
+  useDeleteModal,
+} from "./ScheduleList.hooks";
 import { EditScheduleModal } from "../EditScheduleModal/EditScheduleModal";
+import { DeleteScheduleModal } from "../DeleteScheduleModal/DeleteScheduleModal";
 import dayjs, { Dayjs } from "dayjs";
 import { Schedule } from "@/types";
+import { DisplaySchedule } from "../DisplaySchedule/DisplaySchedule";
 
 export const ScheduleList = () => {
   const defaultSchedule: Schedule = {
@@ -33,86 +40,112 @@ export const ScheduleList = () => {
   };
   const { schedules, setSchedules } = useScheduleList();
   const [displayFlg, setDisplayFlg] = useState(false);
-  const [displayKey, setDisplayKey] = useState("");
-  const [deleteKey, setDeleteKey] = useState("");
-  const { open, setEditModalOpen, onClickEditModal } = useEditModal();
+  const [displaySchedule, setDisplaySchedule] = useState(defaultSchedule);
+  const { editModalIsOpen, setEditModalIsopen, onClickEditModal } =
+    useEditModal();
+  const { deleteModalIsOpen, setDeleteModalIsopen, onClickDeleteModal } =
+    useDeleteModal();
   const [targetSchedule, setTargetSchedule] =
     useState<Schedule>(defaultSchedule);
   const onClickDelete = () => {
-    // setScheduleList(
-    //   scheduleList.filter((schedule) => deleteKey !== schedule.id)
-    // );
+    const newSchedules = schedules.filter(
+      (schedule) => schedule.id !== targetSchedule.id
+    );
+    setSchedules(newSchedules);
   };
   return (
-    <Box display={"flex"}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell>予定日</TableCell>
-            <TableCell>時間</TableCell>
-            <TableCell>タイトル</TableCell>
-            <TableCell>会社名</TableCell>
-            <TableCell>転職サイト</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {schedules.map((schedule) => (
-            <TableRow
-              key={schedule.id}
-              onClick={() => {
-                setDisplayFlg(true);
-                setDisplayKey(schedule.id);
-              }}
-            >
-              <TableCell>{schedule.id}</TableCell>
-              <TableCell>{schedule.date.format("YYYY/MM/DD")}</TableCell>
-              <TableCell>{schedule.time.format("HH:mm")}</TableCell>
-              <TableCell>{schedule.title}</TableCell>
-              <TableCell>{schedule.company.name}</TableCell>
-              <TableCell>{schedule.jobChangeSite.name}</TableCell>
-              <TableCell
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
+    <>
+      <Box display={"flex"}>
+        <TableContainer sx={{ flexGlow: "none" }}>
+          <Table sx={{ tableLayout: "fixed" }}>
+            <TableHead>
+              <TableRow sx={{ height: "10px", width: "50px" }}>
+                <TableCell></TableCell>
+                <TableCell>予定日</TableCell>
+                <TableCell>時間</TableCell>
+                <TableCell>タイトル</TableCell>
+                <TableCell>会社名</TableCell>
+                <TableCell>転職サイト</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody sx={{ height: "10px" }}>
+              {schedules.map((schedule) => (
+                <TableRow
+                  key={schedule.id}
                   onClick={() => {
-                    setTargetSchedule(schedule);
-                    onClickEditModal();
+                    setDisplayFlg(true);
+                    setDisplaySchedule(schedule);
                   }}
                 >
-                  編集
-                </Button>
-              </TableCell>
-              <TableCell
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => {
-                    setDeleteKey(schedule.id);
-                    onClickDelete();
-                    alert("削除");
-                  }}
-                >
-                  削除
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <EditScheduleModal
-        open={open}
-        handleClose={() => setEditModalOpen(false)}
-        targetSchedule={targetSchedule}
-      />
-    </Box>
+                  <TableCell>{schedule.id}</TableCell>
+                  <TableCell>{schedule.date.format("YYYY/MM/DD")}</TableCell>
+                  <TableCell>{schedule.time.format("HH:mm")}</TableCell>
+                  <TableCell>{schedule.title}</TableCell>
+                  <TableCell>{schedule.company.name}</TableCell>
+                  <TableCell>{schedule.jobChangeSite.name}</TableCell>
+                  <TableCell
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        setTargetSchedule(schedule);
+                        onClickEditModal();
+                      }}
+                    >
+                      編集
+                    </Button>
+                  </TableCell>
+                  <TableCell
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => {
+                        setTargetSchedule(schedule);
+                        onClickDeleteModal();
+                      }}
+                    >
+                      削除
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <EditScheduleModal
+          open={editModalIsOpen}
+          handleClose={() => {
+            setEditModalIsopen(false);
+            setTargetSchedule(defaultSchedule);
+          }}
+          targetSchedule={targetSchedule}
+        />
+        {deleteModalIsOpen && (
+          <DeleteScheduleModal
+            open={deleteModalIsOpen}
+            handleClose={() => {
+              setDeleteModalIsopen(false);
+              setTargetSchedule(defaultSchedule);
+            }}
+            targetSchedule={targetSchedule}
+            onClickDelete={onClickDelete}
+          />
+        )}
+        {displayFlg && (
+          <DisplaySchedule
+            displaySchedule={displaySchedule}
+            setDisplayFlg={setDisplayFlg}
+          />
+        )}
+      </Box>
+    </>
   );
 };
