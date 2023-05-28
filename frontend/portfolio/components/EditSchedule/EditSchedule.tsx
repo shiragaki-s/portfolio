@@ -23,13 +23,25 @@ export const EditSchedule = ({ handleClose, targetSchedule }: Props) => {
   const initScheduleForm = () => {
     setNewSchedule(targetSchedule);
   };
+  const onClickDelete = () => {
+    const newSchedules = schedules.filter(
+      (schedule) => schedule.id !== targetSchedule.id
+    );
+    setSchedules(newSchedules);
+    handleClose();
+  };
   return (
-    <ScheduleForm
-      schedule={newSchedule}
-      setNewSchedule={setNewSchedule}
-      handleClose={handleClose}
-      onSubmitHandle={onSubmitHandle}
-      initScheduleForm={initScheduleForm}
-    />
+    <Box>
+      <ScheduleForm
+        schedule={newSchedule}
+        setNewSchedule={setNewSchedule}
+        handleClose={handleClose}
+        onSubmitHandle={onSubmitHandle}
+        initScheduleForm={initScheduleForm}
+        onClickDelete={onClickDelete}
+        deleteButtonFlg={true}
+        buttonText="編集"
+      />
+    </Box>
   );
 };

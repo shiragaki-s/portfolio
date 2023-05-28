@@ -46,6 +46,8 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
       handleClose={handleClose}
       onSubmitHandle={onSubmitHandle}
       initScheduleForm={initScheduleForm}
+      deleteButtonFlg={false}
+      buttonText="登録"
     />
   );
 };

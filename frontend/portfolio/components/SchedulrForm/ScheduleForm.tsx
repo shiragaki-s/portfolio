@@ -17,6 +17,9 @@ type Props = {
   onSubmitHandle: () => void;
   handleClose: () => void;
   initScheduleForm: () => void;
+  onClickDelete?: () => void;
+  deleteButtonFlg: boolean;
+  buttonText: string;
 };
 export const ScheduleForm = ({
   schedule,
@@ -24,6 +27,9 @@ export const ScheduleForm = ({
   onSubmitHandle,
   handleClose,
   initScheduleForm,
+  onClickDelete,
+  deleteButtonFlg,
+  buttonText,
 }: Props) => {
   return (
     <Box component="form" noValidate autoComplete="off">
@@ -199,8 +205,21 @@ export const ScheduleForm = ({
               handleClose();
             }}
           >
-            登録
+            {buttonText}
           </Button>
+          {deleteButtonFlg && (
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ width: 100, padding: 1, margin: 2 }}
+              onClick={() => {
+                onClickDelete ? onClickDelete() : handleClose();
+                handleClose();
+              }}
+            >
+              削除
+            </Button>
+          )}
           <Button
             variant="outlined"
             sx={{ width: 100, padding: 1, margin: 2 }}

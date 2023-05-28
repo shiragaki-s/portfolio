@@ -57,7 +57,7 @@ export const ScheduleList = () => {
     <>
       <Box display={"flex"}>
         <TableContainer sx={{ flexGlow: "none" }}>
-          <Table sx={{ tableLayout: "fixed" }}>
+          <Table sx={{ height: "auto" }}>
             <TableHead>
               <TableRow sx={{ height: "10px", width: "50px" }}>
                 <TableCell></TableCell>
