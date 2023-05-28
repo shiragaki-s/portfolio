@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -55,68 +56,70 @@ export const ScheduleList = () => {
   return (
     <>
       <Box display={"flex"}>
-        <Table sx={{ tableLayout: "fixed" }}>
-          <TableHead>
-            <TableRow sx={{ height: "10px", width: "50px" }}>
-              <TableCell></TableCell>
-              <TableCell>予定日</TableCell>
-              <TableCell>時間</TableCell>
-              <TableCell>タイトル</TableCell>
-              <TableCell>会社名</TableCell>
-              <TableCell>転職サイト</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody sx={{ height: "10px" }}>
-            {schedules.map((schedule) => (
-              <TableRow
-                key={schedule.id}
-                onClick={() => {
-                  setDisplayFlg(true);
-                  setDisplaySchedule(schedule);
-                }}
-              >
-                <TableCell>{schedule.id}</TableCell>
-                <TableCell>{schedule.date.format("YYYY/MM/DD")}</TableCell>
-                <TableCell>{schedule.time.format("HH:mm")}</TableCell>
-                <TableCell>{schedule.title}</TableCell>
-                <TableCell>{schedule.company.name}</TableCell>
-                <TableCell>{schedule.jobChangeSite.name}</TableCell>
-                <TableCell
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      setTargetSchedule(schedule);
-                      onClickEditModal();
-                    }}
-                  >
-                    編集
-                  </Button>
-                </TableCell>
-                <TableCell
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => {
-                      setTargetSchedule(schedule);
-                      onClickDeleteModal();
-                    }}
-                  >
-                    削除
-                  </Button>
-                </TableCell>
+        <TableContainer sx={{ flexGlow: "none" }}>
+          <Table sx={{ tableLayout: "fixed" }}>
+            <TableHead>
+              <TableRow sx={{ height: "10px", width: "50px" }}>
+                <TableCell></TableCell>
+                <TableCell>予定日</TableCell>
+                <TableCell>時間</TableCell>
+                <TableCell>タイトル</TableCell>
+                <TableCell>会社名</TableCell>
+                <TableCell>転職サイト</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody sx={{ height: "10px" }}>
+              {schedules.map((schedule) => (
+                <TableRow
+                  key={schedule.id}
+                  onClick={() => {
+                    setDisplayFlg(true);
+                    setDisplaySchedule(schedule);
+                  }}
+                >
+                  <TableCell>{schedule.id}</TableCell>
+                  <TableCell>{schedule.date.format("YYYY/MM/DD")}</TableCell>
+                  <TableCell>{schedule.time.format("HH:mm")}</TableCell>
+                  <TableCell>{schedule.title}</TableCell>
+                  <TableCell>{schedule.company.name}</TableCell>
+                  <TableCell>{schedule.jobChangeSite.name}</TableCell>
+                  <TableCell
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        setTargetSchedule(schedule);
+                        onClickEditModal();
+                      }}
+                    >
+                      編集
+                    </Button>
+                  </TableCell>
+                  <TableCell
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => {
+                        setTargetSchedule(schedule);
+                        onClickDeleteModal();
+                      }}
+                    >
+                      削除
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
         <EditScheduleModal
           open={editModalIsOpen}
           handleClose={() => {
