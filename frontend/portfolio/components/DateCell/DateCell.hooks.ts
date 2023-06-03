@@ -1,4 +1,7 @@
+import { getDateSchedule } from "@/stores/schedule";
+import { Dayjs } from "dayjs";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 export const useHoverState = (
   ref: MutableRefObject<HTMLElement | undefined>
@@ -26,4 +29,9 @@ export const useRegistModal = () => {
     setRegistModalOpen(true);
   };
   return { open, setRegistModalOpen, onClickRegistModal };
+};
+
+export const useDateSchedules = (date: Dayjs) => {
+  const schedules = useRecoilValue(getDateSchedule(date));
+  return { schedules };
 };
