@@ -1,6 +1,6 @@
-import { Schedule } from "@/types";
+import { NewSchedule, Schedule } from "@/types";
 import dayjs, { Dayjs } from "dayjs";
-import { atom, selectorFamily } from "recoil";
+import { DefaultValue, atom, selector, selectorFamily } from "recoil";
 
 // atomFamily
 // const scheduleState = atomFamily<Schedule,string>({
@@ -13,41 +13,29 @@ import { atom, selectorFamily } from "recoil";
 
 export const scheduleListState = atom<Array<Schedule>>({
   key: "scheduleList",
-  default: [
-    {
-      id: "1",
-      title: "カジュアル面談",
-      date: dayjs("2023-05-01"),
-      time: dayjs("2023-05-01 09:00"),
-      company: {
-        name: "株式会社ABC",
-        url: "https://www.abc/",
-        interestFeatures: "React",
-      },
-      jobChangeSite: {
-        name: "green",
-        url: "https://www.green/",
-      },
-      desiredLevel: 3,
-    },
-    {
-      id: "2",
-      title: "面接",
-      date: dayjs("2023-05-05"),
-      time: dayjs("2023-05-05 10:00"),
-      company: {
-        name: "株式会社DEF",
-        url: "https://www.yahoo.co.jp/",
-        interestFeatures: "Lambda",
-      },
-      jobChangeSite: {
-        name: "wantedly",
-        url: "https://wanted.jp",
-      },
-      desiredLevel: 4,
-      remarks: "ホワイトそう",
-    },
-  ],
+  default: [],
+});
+
+export const scheduleListSelector = selector<NewSchedule[]>({
+  key: "scheduleListSelector",
+  get: ({ get }) => get(scheduleListState),
+  set: ({ set }, newSchedules) => {
+    if (newSchedules instanceof DefaultValue) return;
+    const schedules = newSchedules.map((schedule) => {
+      return {
+        ...schedule,
+        time:
+          typeof schedule.time === "string"
+            ? dayjs(schedule.time)
+            : schedule.time,
+        date:
+          typeof schedule.date === "string"
+            ? dayjs(schedule.date)
+            : schedule.date,
+      };
+    });
+    set(scheduleListState, schedules);
+  },
 });
 
 export const getDateSchedule = selectorFamily<Schedule[], Dayjs>({
@@ -55,14 +43,10 @@ export const getDateSchedule = selectorFamily<Schedule[], Dayjs>({
   get:
     (date) =>
     ({ get }) => {
-      console.log(`date is ${date}`);
-
-      const result = get(scheduleListState).filter((schedule) =>
-        schedule.date.isSame(date)
-      );
-
-      console.log(result);
-
+      const result = get(scheduleListState).filter((schedule) => {
+        // (schedule.date as Dayjs).isSame(date)
+        dayjs(schedule.date).isSame(date);
+      });
       return result;
     },
 });

@@ -1,15 +1,20 @@
-import { Schedule } from "@/types";
+import { Company, JobChangeSite, Schedule } from "@/types";
 import {
   Box,
   Button,
   FormControl,
+  InputLabel,
+  ListItem,
+  MenuItem,
   Rating,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { useCompanyList, useJobChangeSiteList } from "./ScheduleForm.hooks";
 
 type Props = {
   schedule: Schedule;
@@ -20,6 +25,8 @@ type Props = {
   onClickDelete?: () => void;
   deleteButtonFlg: boolean;
   buttonText: string;
+  // companyList: Company[];
+  // jobChangeSiteList: JobChangeSite[];
 };
 export const ScheduleForm = ({
   schedule,
@@ -30,7 +37,13 @@ export const ScheduleForm = ({
   onClickDelete,
   deleteButtonFlg,
   buttonText,
-}: Props) => {
+}: // companyList,
+// jobChangeSiteList,
+Props) => {
+  const { jobChangeSiteList, setJobChangeSiteList } = useJobChangeSiteList();
+  const { companyList, setCompanyList } = useCompanyList();
+  console.log(jobChangeSiteList);
+  console.log(companyList);
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: "80%" }}>
@@ -50,11 +63,9 @@ export const ScheduleForm = ({
             defaultValue={schedule.time}
             onChange={(value) => {
               if (value !== null) {
-                // schedule.time = value;
                 const newSchedule = { ...schedule, time: value };
                 setNewSchedule(newSchedule);
               }
-              console.log(value);
             }}
           />
         </LocalizationProvider>
@@ -71,6 +82,42 @@ export const ScheduleForm = ({
             setNewSchedule(newSchedule);
           }}
         />
+        <FormControl fullWidth>
+          <InputLabel id="companyLabel">会社名</InputLabel>
+          <Select
+            labelId="companyLabel"
+            id="companyId"
+            label="会社名"
+            value={schedule.company.id}
+            onChange={(e) => {
+              let newCompany: Company = {
+                ...schedule.company,
+                id: Number(e.target.value),
+              };
+
+              if (newCompany.id !== -1) {
+                newCompany = companyList.filter(
+                  (company) => company.id === newCompany.id
+                )[0];
+              }
+              const newSchedule = { ...schedule, company: newCompany };
+              setNewSchedule(newSchedule);
+            }}
+          >
+            <MenuItem value={-1}>--新規の会社を登録--</MenuItem>
+            {
+              // 既存の会社のmap
+              companyList.map((company) => {
+                return (
+                  <MenuItem key={company.id} value={company.id}>
+                    {company.name}
+                  </MenuItem>
+                );
+              })
+            }
+          </Select>
+        </FormControl>
+
         <TextField
           name="fbemail"
           id="fbemail"
@@ -79,7 +126,9 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
-          defaultValue={schedule.company.name}
+          // defaultValue={schedule.company.name}
+          value={schedule.company.name}
+          disabled={schedule.company.id !== -1}
           onChange={(e) => {
             const newCompany = { ...schedule.company, name: e.target.value };
             const newSchedule = { ...schedule, company: newCompany };
@@ -94,13 +143,57 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
-          defaultValue={schedule.company.url}
+          // defaultValue={schedule.company.url}
+          value={schedule.company.url}
+          disabled={schedule.company.id !== -1}
           onChange={(e) => {
             const newCompany = { ...schedule.company, url: e.target.value };
             const newSchedule = { ...schedule, company: newCompany };
             setNewSchedule(newSchedule);
           }}
         />
+        <FormControl fullWidth>
+          <InputLabel id="jobChangeSiteLabel">転職サイト名</InputLabel>
+          <Select
+            labelId="jobChangeSiteLabel"
+            id="jobChangeSiteId"
+            label="転職サイト名"
+            value={schedule.jobChangeSite.id}
+            onChange={(e) => {
+              let newJobChangeSite: JobChangeSite = {
+                ...schedule.jobChangeSite,
+                id: Number(e.target.value),
+              };
+
+              if (newJobChangeSite.id !== -1) {
+                newJobChangeSite = jobChangeSiteList.filter(
+                  (jobChangeSite) => jobChangeSite.id === newJobChangeSite.id
+                )[0];
+              }
+
+              const newSchedule = {
+                ...schedule,
+                jobChangeSite: newJobChangeSite,
+              };
+              setNewSchedule(newSchedule);
+            }}
+          >
+            <MenuItem key={-1} value={-1}>
+              --新規の転職サイトを登録--
+            </MenuItem>
+            {
+              // 既存の転職サイトのmap
+              jobChangeSiteList.map((jobChangeSite) => {
+                return (
+                  <MenuItem key={jobChangeSite.id} value={jobChangeSite.id}>
+                    {jobChangeSite.name}
+                  </MenuItem>
+                );
+              })
+            }
+          </Select>
+        </FormControl>
+
         <TextField
           name="fbmessage"
           id="fbmessage"
@@ -109,10 +202,16 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
-          defaultValue={schedule.jobChangeSite.name}
+          // defaultValue={schedule.jobChangeSite.name}
+          value={schedule.jobChangeSite.name}
+          disabled={schedule.jobChangeSite.id !== -1}
           onChange={(e) => {
+            const site = jobChangeSiteList.find(
+              (site) => site.id === Number(e.target.value)
+            );
+            if (!site) return;
             const newJobChangeSite = {
-              ...schedule.jobChangeSite,
+              ...site,
               name: e.target.value,
             };
             const newSchedule = {
@@ -130,7 +229,9 @@ export const ScheduleForm = ({
           variant="filled"
           margin="dense"
           size="small"
-          defaultValue={schedule.jobChangeSite.url}
+          // defaultValue={schedule.jobChangeSite.url}
+          value={schedule.jobChangeSite.url}
+          disabled={schedule.jobChangeSite.id !== -1}
           onChange={(e) => {
             const newJobChangeSite = {
               ...schedule.jobChangeSite,
@@ -154,6 +255,7 @@ export const ScheduleForm = ({
           margin="dense"
           size="small"
           defaultValue={schedule.company.interestFeatures}
+          disabled={schedule.company.id !== -1}
           onChange={(e) => {
             const newCompany = {
               ...schedule.company,

@@ -15,7 +15,6 @@ type Props = {
 export const MonthlyCalendar = (props: Props) => {
   const { date, onClickBack, onClickNext } = props;
   const dateList = getMonthlyDateList(date);
-  console.log(dateList);
   const dayTypeList = ["日", "月", "火", "水", "木", "金", "土"];
 
   return (

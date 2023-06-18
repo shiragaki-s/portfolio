@@ -11,8 +11,8 @@ import {
 import { useState } from "react";
 import {
   useEditModal,
-  useScheduleList,
   useDeleteModal,
+  useScheduleList,
 } from "./ScheduleList.hooks";
 import { EditScheduleModal } from "../EditScheduleModal/EditScheduleModal";
 import { DeleteScheduleModal } from "../DeleteScheduleModal/DeleteScheduleModal";
@@ -22,16 +22,18 @@ import { DisplaySchedule } from "../DisplaySchedule/DisplaySchedule";
 
 export const ScheduleList = () => {
   const defaultSchedule: Schedule = {
-    id: "",
+    id: -1,
     title: "",
     date: dayjs(),
     time: dayjs(),
     company: {
+      id: -1,
       name: "",
       url: "",
       interestFeatures: "",
     },
     jobChangeSite: {
+      id: -1,
       name: "",
       url: "",
     },

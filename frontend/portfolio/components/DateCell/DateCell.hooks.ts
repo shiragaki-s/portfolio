@@ -1,4 +1,4 @@
-import { getDateSchedule } from "@/stores/schedule";
+import { getDateSchedule, scheduleListState } from "@/stores/schedule";
 import { Dayjs } from "dayjs";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -32,6 +32,9 @@ export const useRegistModal = () => {
 };
 
 export const useDateSchedules = (date: Dayjs) => {
-  const schedules = useRecoilValue(getDateSchedule(date));
-  return { schedules };
+  const schedules = useRecoilValue(scheduleListState);
+  // const schedules = useRecoilValue(getDateSchedule(date));
+  return {
+    schedules: schedules.filter((schedule) => schedule.date.isSame(date)),
+  };
 };
