@@ -26,6 +26,8 @@ export const useInitialize = () => {
       }
       setSchedules(response.data.schedules);
       setCompanies(response.data.companies);
+
+      console.log(JSON.stringify(response.data));
       setJobChangeSite(response.data.jobChangeSites);
     })();
   };
