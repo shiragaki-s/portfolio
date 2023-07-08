@@ -1,6 +1,6 @@
-import { scheduleListState } from "@/stores/schedule";
+import { scheduleListSelector, scheduleListState } from "@/stores/schedule";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 export const useEditModal = () => {
   const [editModalIsOpen, setEditModalIsopen] = useState(false);
@@ -8,11 +8,6 @@ export const useEditModal = () => {
     setEditModalIsopen(true);
   };
   return { editModalIsOpen, setEditModalIsopen, onClickEditModal };
-};
-
-export const useScheduleList = () => {
-  const [schedules, setSchedules] = useRecoilState(scheduleListState);
-  return { schedules, setSchedules };
 };
 
 export const useDeleteModal = () => {

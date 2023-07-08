@@ -1,8 +1,9 @@
 import { Schedule } from "@/types";
 import { useState } from "react";
-import { useScheduleList } from "../ScheduleList/ScheduleList.hooks";
 import { Dayjs } from "dayjs";
 import { ScheduleForm } from "../SchedulrForm/ScheduleForm";
+import { useScheduleList } from "@/hooks/useScheduleList";
+import { useRegisterSchedule } from "@/hooks/useRegisterSchedule";
 
 type Props = {
   handleClose: () => void;
@@ -11,16 +12,18 @@ type Props = {
 
 export const RegisterSchedule = ({ handleClose, date }: Props) => {
   const defaultSchedule: Schedule = {
-    id: "",
+    id: -1,
     title: "",
     date: date,
     time: date,
     company: {
+      id: -1,
       name: "",
       url: "",
       interestFeatures: "",
     },
     jobChangeSite: {
+      id: -1,
       name: "",
       url: "",
     },
@@ -29,11 +32,12 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
   };
   const [newSchedule, setNewSchedule] = useState<Schedule>(defaultSchedule);
   const { schedules, setSchedules } = useScheduleList();
+  const { executeRegisterSchedulRequest } = useRegisterSchedule();
   const onSubmitHandle = () => {
-    newSchedule.id = (schedules.length + 1).toString();
     setSchedules([...schedules, newSchedule]);
-    console.log(newSchedule);
     console.log("新規登録処理の呼び出し");
+    newSchedule;
+    executeRegisterSchedulRequest(newSchedule);
   };
   const initScheduleForm = () => {
     setNewSchedule(defaultSchedule);
