@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { MonthlyCalendar } from "@/components/MonthlyCalendar/MonthlyCalendar";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import { useState } from "react";
 import { MainHeader } from "@/components/Header/MainHeader";
 import { Box } from "@mui/material";
@@ -11,9 +13,12 @@ import { Box } from "@mui/material";
 // import { Inter } from '@/components/hoge'
 
 const inter = Inter({ subsets: ["latin"] });
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Tokyo");
 
 export default function Calendar() {
-  const [date, setDate] = useState(dayjs());
+  const [date, setDate] = useState(dayjs().tz());
   const onClickBack = () => {
     setDate(date.subtract(1, "month"));
   };

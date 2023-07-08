@@ -3,12 +3,17 @@ import { ApiResponse } from "@/types";
 const BASE_URL = "http://localhost:5001/";
 type URL = "calendar" | "company" | "job_change_site";
 
+type Response<T> = {
+  data?: T;
+  errorMessage?: string;
+};
+
 export const useRequestPortfolio = () => {
   const request = async <T>(
-    method: "GET" | "POST",
-    url: URL
-  ): Promise<ApiResponse<T>> => {
-    const res = await fetch(BASE_URL + url, { method });
+    url: URL,
+    option: RequestInit
+  ): Promise<Response<T>> => {
+    const res = await fetch(BASE_URL + url, option);
     if (!res.ok) {
       return {
         errorMessage: res.statusText,
@@ -16,7 +21,6 @@ export const useRequestPortfolio = () => {
     }
     const data = await res.json();
     return {
-      errorMessage: res.statusText,
       data: data as T,
     };
   };

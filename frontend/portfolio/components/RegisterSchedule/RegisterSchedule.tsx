@@ -1,9 +1,9 @@
 import { Schedule } from "@/types";
 import { useState } from "react";
-import { useScheduleList } from "../ScheduleList/ScheduleList.hooks";
 import { Dayjs } from "dayjs";
 import { ScheduleForm } from "../SchedulrForm/ScheduleForm";
-import { useRegisterSchedule } from "./RegisterSchedule.hooks";
+import { useScheduleList } from "@/hooks/useScheduleList";
+import { useRegisterSchedule } from "@/hooks/useRegisterSchedule";
 
 type Props = {
   handleClose: () => void;
@@ -34,7 +34,6 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
   const { schedules, setSchedules } = useScheduleList();
   const { executeRegisterSchedulRequest } = useRegisterSchedule();
   const onSubmitHandle = () => {
-
     setSchedules([...schedules, newSchedule]);
     console.log("新規登録処理の呼び出し");
     newSchedule;

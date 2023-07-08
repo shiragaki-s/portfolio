@@ -10,12 +10,6 @@ export const useEditModal = () => {
   return { editModalIsOpen, setEditModalIsopen, onClickEditModal };
 };
 
-export const useScheduleList = () => {
-  const schedules = useRecoilValue(scheduleListState);
-  const setSchedules = useSetRecoilState(scheduleListSelector);
-  return { schedules, setSchedules };
-};
-
 export const useDeleteModal = () => {
   const [deleteModalIsOpen, setDeleteModalIsopen] = useState(false);
   const onClickDeleteModal = () => {

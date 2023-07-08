@@ -23,15 +23,6 @@ connection = psycopg2.connect(
 def index():
     return "hello,flask"
 
-# @app.route("/test")
-# def test():
-#     with connection:
-#         with connection.cursor() as cursor:
-#             sql = "INSERT INTO public.test(name) VALUES ('suzuki');"
-#             cursor.execute(sql)
-#             connection.commit()
-#     return "test実行されました"
-
 
 @app.route("/calendar", methods=["GET"])
 # @cross_origin(origins=["http://localhost:3000"], methods=["GET"])
@@ -45,32 +36,12 @@ def calendar():
         print(jobChangeSites)
         return {"schedules": schedules, "companies": companies, "jobChangeSites": jobChangeSites}
 
-# @app.route("/comapnies", methods=["GET"])
-# # @cross_origin(origins=["http://localhost:3000"], methods=["GET"])
-# def comapnies():
-#     with connection:
-#         with connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
-#             # データを挿入するSQL文を定義します
-#             sql = "SELECT * FROM public.company INNER JOIN public.company ON public.company.company_id=public.schedule.company_id\
-#                   JOIN public.job_change_site ON public.job_change_site.job_change_site_id=public.schedule.job_change_site_id"
-#             # 挿入するデータを定義します
-#             # SQL文を実行します
-#             cursor.execute(sql)
-#             connection.commit()
-#             schedules = cursor.fetchall()
-#             dict_result = [dict(row) for row in schedules]
-#     reSchedules = [schedule_form(data) for data in dict_result]
-#     print(reSchedules)
-#     return reSchedules
-
 
 @app.route("/calendar", methods=["POST"])
 def update_calendar():
     # リクエストのJSONデータを取り出す
     data = request.get_json()  # pythonのオブジェクトとしてJSONを取り出す
     print(data)
-    # if data['id'] == -1:
-    #     print(data)
     # スケジュールの更新処理なのか新規登録処理なのか判定
     # scheduleIdの有無で判定
     company_id = get_new_company_id_after_register(
@@ -105,7 +76,7 @@ def update_calendar():
                 cursor.execute(sql, data)
                 connection.commit()
 
-    return "test実行されました"
+    return {"res": "ok"}
 
 
 def get_new_company_id_after_register(company):
@@ -170,7 +141,10 @@ def get_schedules(connection):
         connection.commit()
         schedules = cursor.fetchall()
         dict_result = [dict(row) for row in schedules]
+        print("dict_result")
+        print(dict_result)
     reSchedules = [schedule_form(data) for data in dict_result]
+    print("reSchedules")
     print(reSchedules)
     return reSchedules
 
@@ -184,7 +158,7 @@ def get_companies(connection):
         cursor.execute(sql)
         connection.commit()
         companies = cursor.fetchall()
-        return [dict(row) for row in companies]
+        return [format_company(dict(row)) for row in companies]
 
 
 def get_jobChangeSite(connection):
@@ -196,7 +170,24 @@ def get_jobChangeSite(connection):
         cursor.execute(sql)
         connection.commit()
         jobChangeSite = cursor.fetchall()
-        return [dict(row) for row in jobChangeSite]
+        return [format_job_change_site(dict(row)) for row in jobChangeSite]
+
+
+def format_company(company):
+    return {
+        'id': company['company_id'],
+        'name': company['company_name'],
+        'url': company['company_url'],
+        'interestFeatures': company['interest_features']
+    }
+
+
+def format_job_change_site(job_change_site):
+    return {
+        'id': job_change_site['job_change_site_id'],
+        'name': job_change_site['job_change_site_name'],
+        'url': job_change_site['job_change_site_url']
+    }
 
 
 if __name__ == "__main__":

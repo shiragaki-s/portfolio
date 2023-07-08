@@ -1,9 +1,9 @@
 import { useRequestPortfolio } from "@/hooks/useRequestPortfolio";
 import { Company, JobChangeSite, NewSchedule } from "@/types";
-import { useScheduleList } from "../ScheduleList/ScheduleList.hooks";
 import { useSetRecoilState } from "recoil";
 import { companyListState } from "@/stores/company";
 import { jobChangeSiteListState } from "@/stores/jobChangeSite";
+import { useScheduleList } from "@/hooks/useScheduleList";
 
 export const useInitialize = () => {
   const { schedules, setSchedules } = useScheduleList();
@@ -18,7 +18,7 @@ export const useInitialize = () => {
         schedules: NewSchedule[];
         companies: Company[];
         jobChangeSites: JobChangeSite[];
-      }>("GET", "calendar");
+      }>("calendar", { method: "GET" });
 
       if (!response.data) {
         alert(response.errorMessage);

@@ -1,22 +1,24 @@
+import { useScheduleList } from "@/hooks/useScheduleList";
 import { Schedule } from "@/types";
-import { useScheduleList } from "../ScheduleList/ScheduleList.hooks";
+import { useRequestPortfolio } from "./useRequestPortfolio";
 
 export const useRegisterSchedule = () => {
   const { schedules, setSchedules } = useScheduleList();
+  const { request } = useRequestPortfolio();
   const executeRegisterSchedulRequest = async (newSchedule: Schedule) => {
     const registerData = {
-      id: -1,
+      id: newSchedule.id,
       title: newSchedule.title,
       date: newSchedule.date.format("YYYY-MM-DD"),
       time: newSchedule.time.format("YYYY-MM-DD HH:mm"),
       company: {
-        id: -1,
+        id: newSchedule.company.id,
         name: newSchedule.company.name,
         url: newSchedule.company.url,
         interestFeatures: newSchedule.company.interestFeatures,
       },
       jobChangeSite: {
-        id: -1,
+        id: newSchedule.jobChangeSite.id,
         name: newSchedule.jobChangeSite.name,
         url: newSchedule.jobChangeSite.url,
       },
@@ -24,21 +26,17 @@ export const useRegisterSchedule = () => {
       remarks: newSchedule.remarks,
     };
 
-    const res = await fetch("http://localhost:5001/calendar", {
+    const res = await request("calendar", {
       method: "POST",
       mode: "cors",
-      // cache: "no-cache",
-      // credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        // "Access-Control-Allow-Origin": "http://localhost:5001/calendar",
         Vary: origin,
       },
-      // redirect: "follow",
-      // referrerPolicy: "no-referrer",
       body: JSON.stringify(registerData),
     });
-    if (res.ok) {
+
+    if (!res.errorMessage) {
       console.log("登録成功");
     } else {
       // エラー処理

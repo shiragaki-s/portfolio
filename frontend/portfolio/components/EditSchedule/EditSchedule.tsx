@@ -3,8 +3,8 @@ import { ScheduleForm } from "../SchedulrForm/ScheduleForm";
 import { Dayjs } from "dayjs";
 import { Schedule } from "@/types";
 import { useState } from "react";
-import { useScheduleList } from "../ScheduleList/ScheduleList.hooks";
-import { useRegisterSchedule } from "../RegisterSchedule/RegisterSchedule.hooks";
+import { useScheduleList } from "@/hooks/useScheduleList";
+import { useRegisterSchedule } from "@/hooks/useRegisterSchedule";
 
 type Props = {
   handleClose: () => void;
@@ -19,6 +19,7 @@ export const EditSchedule = ({ handleClose, targetSchedule }: Props) => {
       schedule.id === newSchedule.id ? newSchedule : schedule
     );
     setSchedules(newSchedules);
+    //newScheduleのidが-1になっている？
     executeRegisterSchedulRequest(newSchedule);
     console.log("更新処理の呼び出し");
   };

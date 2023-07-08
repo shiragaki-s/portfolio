@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import { useCompanyList, useJobChangeSiteList } from "./ScheduleForm.hooks";
+import { useCompanyList } from "@/hooks/useCompanyList";
+import { useJobChangeSiteList } from "@/hooks/useJobChangeSiteList";
 
 type Props = {
   schedule: Schedule;
@@ -40,10 +40,10 @@ export const ScheduleForm = ({
 }: // companyList,
 // jobChangeSiteList,
 Props) => {
+  console.log("ScheduleFormのschedule");
+  console.log(schedule);
   const { jobChangeSiteList, setJobChangeSiteList } = useJobChangeSiteList();
   const { companyList, setCompanyList } = useCompanyList();
-  console.log(jobChangeSiteList);
-  console.log(companyList);
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: "80%" }}>

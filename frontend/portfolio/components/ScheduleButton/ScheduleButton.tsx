@@ -10,16 +10,18 @@ type Props = {
 };
 export const ScheduleButton = ({ schedule }: Props) => {
   const defaultSchedule: Schedule = {
-    id: "",
+    id: -1,
     title: "",
     date: dayjs(),
     time: dayjs(),
     company: {
+      id: -1,
       name: "",
       url: "",
       interestFeatures: "",
     },
     jobChangeSite: {
+      id: -1,
       name: "",
       url: "",
     },
@@ -53,7 +55,7 @@ export const ScheduleButton = ({ schedule }: Props) => {
           setEditModalIsopen(false);
           setTargetSchedule(defaultSchedule);
         }}
-        targetSchedule={schedule}
+        targetSchedule={targetSchedule}
       />
     </>
   );
