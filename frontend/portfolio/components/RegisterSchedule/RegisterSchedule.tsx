@@ -33,11 +33,11 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
   const [newSchedule, setNewSchedule] = useState<Schedule>(defaultSchedule);
   const { schedules, setSchedules } = useScheduleList();
   const { executeRegisterSchedulRequest } = useRegisterSchedule();
-  const onSubmitHandle = () => {
-    setSchedules([...schedules, newSchedule]);
+  const onSubmitHandle = async () => {
     console.log("新規登録処理の呼び出し");
-    newSchedule;
-    executeRegisterSchedulRequest(newSchedule);
+    const res = await executeRegisterSchedulRequest(newSchedule);
+    if (!res) return;
+    setSchedules([...schedules, { ...newSchedule, id: res }]);
   };
   const initScheduleForm = () => {
     setNewSchedule(defaultSchedule);

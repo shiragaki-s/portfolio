@@ -56,12 +56,16 @@ def update_calendar():
         with connection:
             with connection.cursor() as cursor:
                 # データを挿入するSQL文を定義します
-                sql = "INSERT INTO public.schedule (title, date, time, company_id, job_change_site_id, desired_level, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO public.schedule (title, date, time, company_id, job_change_site_id, desired_level, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
                 # 挿入するデータを定義します
                 data = (data['title'], data['date'], data['time'], company_id,
                         job_site_id, data['desiredLevel'], data['remarks'])
                 # SQL文を実行します
                 cursor.execute(sql, data)
+                # cursor.fetchone()['id']の時、型エラー発生
+                schedule_id = cursor.fetchone()
+                print(type(schedule_id), schedule_id)
+
                 connection.commit()
     else:
         with connection:
@@ -76,7 +80,7 @@ def update_calendar():
                 cursor.execute(sql, data)
                 connection.commit()
 
-    return {"res": "ok"}
+    return {"res": "ok", "id": schedule_id}
 
 
 def get_new_company_id_after_register(company):

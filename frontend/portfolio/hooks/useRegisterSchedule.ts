@@ -26,7 +26,7 @@ export const useRegisterSchedule = () => {
       remarks: newSchedule.remarks,
     };
 
-    const res = await request("calendar", {
+    const res = await request<{ id: number }>("calendar", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -38,6 +38,7 @@ export const useRegisterSchedule = () => {
 
     if (!res.errorMessage) {
       console.log("登録成功");
+      return res.data?.id;
     } else {
       // エラー処理
       setSchedules(

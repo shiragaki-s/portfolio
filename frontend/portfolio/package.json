@@ -31,8 +31,9 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.35.1",
-    "msw": "^1.2.2"
+    "@playwright/test": "^1.36.1",
+    "msw": "^1.2.2",
+    "playwright-msw": "^2.2.1"
   },
   "msw": {
     "workerDirectory": "public"
