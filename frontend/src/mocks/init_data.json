@@ -1,0 +1,48 @@
+{
+  "companies": [
+    {
+      "id": 1,
+      "interestFeatures": "Lambda",
+      "name": "株式会社Mock",
+      "url": "https://www.a.com/"
+    },
+    {
+      "id": 2,
+      "interestFeatures": "python",
+      "name": "株式会社B",
+      "url": "https://www.b.com"
+    },
+    {
+      "id": 3,
+      "interestFeatures": "React",
+      "name": "株式会社C",
+      "url": "https://www.c.com"
+    }
+  ],
+  "jobChangeSites": [
+    { "id": 1, "name": "wantedly", "url": "https://wanted.jp" },
+    { "id": 2, "name": "green", "url": "https://green.jp" },
+    { "id": 3, "name": "マイナビ", "url": "https://mynavi.jp" }
+  ],
+  "schedules": [
+    {
+      "company": {
+        "id": 1,
+        "interestFeatures": "Lambda",
+        "name": "株式会社",
+        "url": "https://www.yahoo.co.jp/"
+      },
+      "date": "2023-07-05",
+      "desiredLevel": 1,
+      "id": 1,
+      "jobChangeSite": {
+        "id": 1,
+        "name": "wantedly",
+        "url": "https://wanted.jp"
+      },
+      "remarks": "ブラック",
+      "time": "2023-07-01 12:00",
+      "title": "テストA"
+    }
+  ]
+}

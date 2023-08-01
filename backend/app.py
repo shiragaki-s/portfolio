@@ -9,7 +9,7 @@ import psycopg2.extras
 
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000"], methods=["GET", "POST"])
+CORS(app, origins=["*", "http://127.0.0.1:5173"], methods=["GET", "POST"])
 connection = psycopg2.connect(
     host="db",
     port="5432",
@@ -31,9 +31,6 @@ def calendar():
         schedules = get_schedules(connection)
         companies = get_companies(connection)
         jobChangeSites = get_jobChangeSite(connection)
-        print(schedules)
-        print(companies)
-        print(jobChangeSites)
         return {"schedules": schedules, "companies": companies, "jobChangeSites": jobChangeSites}
 
 
@@ -41,7 +38,6 @@ def calendar():
 def update_calendar():
     # リクエストのJSONデータを取り出す
     data = request.get_json()  # pythonのオブジェクトとしてJSONを取り出す
-    print(data)
     # スケジュールの更新処理なのか新規登録処理なのか判定
     # scheduleIdの有無で判定
     company_id = get_new_company_id_after_register(
@@ -56,16 +52,19 @@ def update_calendar():
         with connection:
             with connection.cursor() as cursor:
                 # データを挿入するSQL文を定義します
-                sql = "INSERT INTO public.schedule (title, date, time, company_id, job_change_site_id, desired_level, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO public.schedule (title, date, time, company_id, job_change_site_id, desired_level, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
                 # 挿入するデータを定義します
                 data = (data['title'], data['date'], data['time'], company_id,
                         job_site_id, data['desiredLevel'], data['remarks'])
                 # SQL文を実行します
                 cursor.execute(sql, data)
+                # cursor.fetchone()['id']の時、型エラー発生
+                schedule_id = cursor.fetchone()
                 connection.commit()
     else:
         with connection:
             with connection.cursor() as cursor:
+                schedule_id = data['id']
                 # データを挿入するSQL文を定義します
                 sql = "UPDATE public.schedule SET\
                       title = %s, date=%s, time=%s, company_id=%s, job_change_site_id=%s, desired_level=%s, remarks=%s WHERE id=%s"
@@ -76,7 +75,7 @@ def update_calendar():
                 cursor.execute(sql, data)
                 connection.commit()
 
-    return {"res": "ok"}
+    return {"res": "ok", "id": schedule_id}
 
 
 def get_new_company_id_after_register(company):
@@ -141,11 +140,7 @@ def get_schedules(connection):
         connection.commit()
         schedules = cursor.fetchall()
         dict_result = [dict(row) for row in schedules]
-        print("dict_result")
-        print(dict_result)
     reSchedules = [schedule_form(data) for data in dict_result]
-    print("reSchedules")
-    print(reSchedules)
     return reSchedules
 
 

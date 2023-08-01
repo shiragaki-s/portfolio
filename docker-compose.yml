@@ -6,6 +6,7 @@ services:
     tty: true
     volumes:
       - ./:/workspace
+      - /home/vscode/.cache/ms-playwright
     depends_on:
       - db
 
