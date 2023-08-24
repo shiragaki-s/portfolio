@@ -1,0 +1,107 @@
+import { Box, FormControl } from "@mui/material";
+import { Schedule } from "../../types";
+import { useJobChangeSiteList } from "../../hooks/useJobChangeSiteList";
+import { useCompanyList } from "../../hooks/useCompanyList";
+import { ScheduleFormDate } from "../ScheduleFormDate/ScheduleFormDate";
+import { ScheduleFormTitle } from "../ScheduleFormTitle/ScheduleFormTitle";
+import { ScheduleFormSelectCompany } from "../ScheduleFormSelectCompany/ScheduleFormSelectCompany";
+import { ScheduleFormCompanyName } from "../ScheduleFormCompanyName/ScheduleFormCompanyName";
+import { ScheduleFormCompanySite } from "../ScheduleFormCompanySite/ScheduleFormCompanySite";
+import { ScheduleFormSelectJobSite } from "../ScheduleFormSelectJobSite/ScheduleFormSelectJobSite";
+import { ScheduleFormJobSiteName } from "../ScheduleFormJobSiteName/ScheduleFormJobSiteName";
+import { ScheduleFormJobSiteUrl } from "../ScheduleFormJobSiteUrl/ScheduleFormJobSiteUrl";
+import { ScheduleFormCompanyFeature } from "../ScheduleFormCompanyFeature/ScheduleFormCompanyFeature";
+import { ScheduleFormDesireLevel } from "../ScheduleFormDesireLevel/ScheduleFormDesireLevel";
+import { ScheduleFormRemarks } from "../ScheduleFormRemarks/ScheduleFormRemarks";
+import { ScheduleFormDecisionButton } from "../ScheduleFormDecisionButton/ScheduleFormDecisionButton";
+import { ScheduleFormDeleteButton } from "../ScheduleFormDeleteButton/ScheduleFormDeleteButton";
+import { ScheduleFormCancelButton } from "../ScheduleFormCancelButton/ScheduleFormCancelButton";
+
+type Props = {
+  schedule: Schedule;
+  setNewSchedule: (schedule: Schedule) => void;
+  onSubmitHandle: () => void;
+  handleClose: () => void;
+  initScheduleForm: () => void;
+  onClickDelete?: () => void;
+  buttonText: string;
+};
+export const ScheduleForm = ({
+  schedule,
+  setNewSchedule,
+  onSubmitHandle,
+  handleClose,
+  initScheduleForm,
+  onClickDelete,
+  buttonText,
+}: Props) => {
+  const { jobChangeSiteList } = useJobChangeSiteList();
+  const { companyList } = useCompanyList();
+  return (
+    <Box component="form" noValidate autoComplete="off">
+      <FormControl sx={{ width: "80%" }}>
+        <ScheduleFormDate schedule={schedule} setNewSchedule={setNewSchedule} />
+        <ScheduleFormTitle
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormSelectCompany
+          schedule={schedule}
+          companyList={companyList}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormCompanyName
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormCompanySite
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormSelectJobSite
+          schedule={schedule}
+          jobChangeSiteList={jobChangeSiteList}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormJobSiteName
+          schedule={schedule}
+          jobChangeSiteList={jobChangeSiteList}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormJobSiteUrl
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormCompanyFeature
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormDesireLevel
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <ScheduleFormRemarks
+          schedule={schedule}
+          setNewSchedule={setNewSchedule}
+        />
+        <Box display={"flex"}>
+          <ScheduleFormDecisionButton
+            onSubmitHandle={onSubmitHandle}
+            handleClose={handleClose}
+            buttonText={buttonText}
+          />
+          {onClickDelete && (
+            <ScheduleFormDeleteButton
+              onClickDelete={onClickDelete}
+              handleClose={handleClose}
+            />
+          )}
+          <ScheduleFormCancelButton
+            initScheduleForm={initScheduleForm}
+            handleClose={handleClose}
+          />
+        </Box>
+      </FormControl>
+    </Box>
+  );
+};

@@ -3,8 +3,8 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import { useState } from "react";
 import { Box } from "@mui/material";
-import { MonthlyCalendar } from "../components/MonthlyCalendar/MonthlyCalendar";
-import { MainHeader } from "../components/Header/MainHeader";
+import { CalendarMonthly } from "../components/CalendarMonthly/CalendarMonthly";
+import { AppMainHeader } from "../components/AppMainHeader/AppMainHeader";
 // @を使わないと全部相対パスで書く
 // import { Inter } from '../../../hoge'
 // @を使うと、基点のフォルダからのパスだけでいい
@@ -24,10 +24,10 @@ export default function Calendar() {
   return (
     <>
       <Box margin={"100px"}>
-        <MainHeader />
+        <AppMainHeader />
       </Box>
       <Box>
-        <MonthlyCalendar
+        <CalendarMonthly
           date={date}
           onClickBack={onClickBack}
           onClickNext={onClickNext}

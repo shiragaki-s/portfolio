@@ -32,7 +32,7 @@
         "name": "株式会社",
         "url": "https://www.yahoo.co.jp/"
       },
-      "date": "2023-07-05",
+      "date": "2023-08-05",
       "desiredLevel": 1,
       "id": 1,
       "jobChangeSite": {
@@ -41,8 +41,27 @@
         "url": "https://wanted.jp"
       },
       "remarks": "ブラック",
-      "time": "2023-07-01 12:00",
+      "time": "2023-08-05 12:00",
       "title": "テストA"
+    },
+    {
+      "company": {
+        "id": 1,
+        "interestFeatures": "Lambda",
+        "name": "株式会社",
+        "url": "https://www.yahoo.co.jp/"
+      },
+      "date": "2023-08-10",
+      "desiredLevel": 4,
+      "id": 2,
+      "jobChangeSite": {
+        "id": 1,
+        "name": "wantedly",
+        "url": "https://wanted.jp"
+      },
+      "remarks": "ブラック",
+      "time": "2023-08-10 14:15",
+      "title": "テスト削除"
     }
   ]
 }

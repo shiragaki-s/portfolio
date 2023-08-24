@@ -59,7 +59,7 @@ def update_calendar():
                 # SQL文を実行します
                 cursor.execute(sql, data)
                 # cursor.fetchone()['id']の時、型エラー発生
-                schedule_id = cursor.fetchone()
+                schedule_id = cursor.fetchone()[0]
                 connection.commit()
     else:
         with connection:
@@ -75,7 +75,30 @@ def update_calendar():
                 cursor.execute(sql, data)
                 connection.commit()
 
-    return {"res": "ok", "id": schedule_id}
+    return {"res": "ok", "id": schedule_id, "company_id": company_id, "job_site_id": job_site_id}
+
+
+@app.route("/delete", methods=["POST"])
+def delete_schedule():
+    args = request.get_json()
+    with connection:
+        with connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+            print(1)
+            # データを挿入するSQL文を定義します
+            sql = "DELETE FROM public.schedule WHERE id = %s;"
+            print(2)
+            # 挿入するデータを定義します
+            print("args['schedule_id']")
+            print(args['schedule_id'])
+            print(type(args['schedule_id']))
+
+            data = (args['schedule_id'],)
+            print(3)
+            # SQL文を実行します
+            cursor.execute(sql, data)
+            print(4)
+        connection.commit()
+    return {"res": "ok", "id": args['schedule_id']}
 
 
 def get_new_company_id_after_register(company):

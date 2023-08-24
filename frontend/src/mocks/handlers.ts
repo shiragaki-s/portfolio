@@ -11,7 +11,7 @@ export const handlers = [
 
   rest.post("http://localhost:5001/calendar", async (req, res, ctx) => {
     const { id } = await req.json();
-    const resId = id === -1 ? new Date().getTime() : id;
+    const resId = id === -1 ? 100 : id;
     return res(
       ctx.status(200),
       ctx.delay(500),

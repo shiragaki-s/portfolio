@@ -1,4 +1,4 @@
-import { jobChangeSiteListState } from "@/stores/jobChangeSite";
+import { jobChangeSiteListState } from "../stores/jobChangeSite";
 import { useRecoilState } from "recoil";
 
 export const useJobChangeSiteList = () => {
