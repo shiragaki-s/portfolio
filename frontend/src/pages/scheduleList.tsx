@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { MainHeader } from "../components/Header/MainHeader";
-import { ScheduleList } from "../components/ScheduleList/ScheduleList";
+import { AppMainHeader } from "../components/AppMainHeader/AppMainHeader";
+import { ScheduleListTable } from "../components/ScheduleListTable/ScheduleListTable";
 // @を使わないと全部相対パスで書く
 // import { Inter } from '../../../hoge'
 // @を使うと、基点のフォルダからのパスだけでいい
@@ -10,10 +10,10 @@ export default function scheduleList() {
   return (
     <>
       <Box margin={"100px"}>
-        <MainHeader />
+        <AppMainHeader />
       </Box>
       <Box>
-        <ScheduleList />
+        <ScheduleListTable />
       </Box>
     </>
   );

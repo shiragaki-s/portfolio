@@ -21,7 +21,7 @@ export const scheduleListState = atom<Array<Schedule>>({
   default: [],
 });
 
-export const scheduleListSelector = selector<NewSchedule[]>({
+export const scheduleListSelector = selector<Schedule[]>({
   key: "scheduleListSelector",
   get: ({ get }) => get(scheduleListState),
   set: ({ set }, newSchedules) => {

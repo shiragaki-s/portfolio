@@ -1,7 +1,7 @@
-import { ApiResponse } from "@/types";
+import { ApiResponse } from "../types";
 
 const BASE_URL = "http://localhost:5001/";
-type URL = "calendar" | "company" | "job_change_site";
+type URL = "calendar" | "company" | "job_change_site" | "delete";
 
 type Response<T> = {
   data?: T;

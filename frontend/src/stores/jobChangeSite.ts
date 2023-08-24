@@ -1,4 +1,4 @@
-import { JobChangeSite } from "@/types";
+import { JobChangeSite } from "../types";
 
 import { atom } from "recoil";
 

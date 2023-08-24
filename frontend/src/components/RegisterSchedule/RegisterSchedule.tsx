@@ -1,9 +1,9 @@
-import { Schedule } from "@/types";
 import { useState } from "react";
 import { Dayjs } from "dayjs";
-import { ScheduleForm } from "../SchedulrForm/ScheduleForm";
-import { useScheduleList } from "@/hooks/useScheduleList";
-import { useRegisterSchedule } from "@/hooks/useRegisterSchedule";
+import { Schedule } from "../../types";
+import { useRegisterSchedule } from "../../hooks/useRegisterSchedule";
+import { defaultSchedule } from "../../utils/calendarUtill";
+import { ScheduleForm } from "../ScheduleForm/ScheduleForm";
 
 type Props = {
   handleClose: () => void;
@@ -11,32 +11,13 @@ type Props = {
 };
 
 export const RegisterSchedule = ({ handleClose, date }: Props) => {
-  const defaultSchedule: Schedule = {
-    id: -1,
-    title: "",
-    date: date,
-    time: date,
-    company: {
-      id: -1,
-      name: "",
-      url: "",
-      interestFeatures: "",
-    },
-    jobChangeSite: {
-      id: -1,
-      name: "",
-      url: "",
-    },
-    desiredLevel: 0,
-    remarks: "",
-  };
-  const [newSchedule, setNewSchedule] = useState<Schedule>(defaultSchedule);
-  const { schedules, setSchedules } = useScheduleList();
+  const [newSchedule, setNewSchedule] = useState<Schedule>({
+    ...defaultSchedule,
+    date,
+  });
   const { executeRegisterSchedulRequest } = useRegisterSchedule();
-  const onSubmitHandle = async () => {
-    const res = await executeRegisterSchedulRequest(newSchedule);
-    if (!res) return;
-    setSchedules([...schedules, { ...newSchedule, id: res }]);
+  const onSubmitHandle = () => {
+    executeRegisterSchedulRequest(newSchedule);
   };
   const initScheduleForm = () => {
     setNewSchedule(defaultSchedule);
@@ -49,7 +30,6 @@ export const RegisterSchedule = ({ handleClose, date }: Props) => {
       handleClose={handleClose}
       onSubmitHandle={onSubmitHandle}
       initScheduleForm={initScheduleForm}
-      deleteButtonFlg={false}
       buttonText="登録"
     />
   );

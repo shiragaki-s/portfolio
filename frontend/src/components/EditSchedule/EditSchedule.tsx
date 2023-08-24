@@ -1,34 +1,26 @@
 import { Box } from "@mui/material";
-import { ScheduleForm } from "../SchedulrForm/ScheduleForm";
 import { useState } from "react";
 import { Schedule } from "../../types";
-import { useScheduleList } from "../../hooks/useScheduleList";
 import { useRegisterSchedule } from "../../hooks/useRegisterSchedule";
+import { useDeleteSchedule } from "../../hooks/useDeleteSchedule";
+import { ScheduleForm } from "../ScheduleForm/ScheduleForm";
 
 type Props = {
   handleClose: () => void;
   targetSchedule: Schedule;
 };
 export const EditSchedule = ({ handleClose, targetSchedule }: Props) => {
-  const { schedules, setSchedules } = useScheduleList();
   const [newSchedule, setNewSchedule] = useState<Schedule>(targetSchedule);
   const { executeRegisterSchedulRequest } = useRegisterSchedule();
   const onSubmitHandle = () => {
-    const newSchedules = schedules.map((schedule) =>
-      schedule.id === newSchedule.id ? newSchedule : schedule
-    );
-    setSchedules(newSchedules);
-    //newScheduleのidが-1になっている？
     executeRegisterSchedulRequest(newSchedule);
   };
   const initScheduleForm = () => {
     setNewSchedule(targetSchedule);
   };
+  const { executeDeleteSchedulRequest } = useDeleteSchedule();
   const onClickDelete = () => {
-    const newSchedules = schedules.filter(
-      (schedule) => schedule.id !== targetSchedule.id
-    );
-    setSchedules(newSchedules);
+    executeDeleteSchedulRequest(targetSchedule.id);
     handleClose();
   };
   return (
@@ -40,7 +32,6 @@ export const EditSchedule = ({ handleClose, targetSchedule }: Props) => {
         onSubmitHandle={onSubmitHandle}
         initScheduleForm={initScheduleForm}
         onClickDelete={onClickDelete}
-        deleteButtonFlg={true}
         buttonText="編集"
       />
     </Box>
