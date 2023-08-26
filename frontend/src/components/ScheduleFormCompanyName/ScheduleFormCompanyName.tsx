@@ -17,7 +17,6 @@ export const ScheduleFormCompanyName = ({
       margin="dense"
       size="small"
       data-testid="form-company-name-input"
-      // defaultValue={schedule.company.name}
       value={schedule.company.name}
       disabled={schedule.company.id !== -1}
       onChange={(e) => {

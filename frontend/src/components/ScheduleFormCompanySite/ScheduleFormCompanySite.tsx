@@ -17,7 +17,6 @@ export const ScheduleFormCompanySite = ({
       variant="filled"
       margin="dense"
       size="small"
-      // defaultValue={schedule.company.url}
       value={schedule.company.url}
       disabled={schedule.company.id !== -1}
       onChange={(e) => {

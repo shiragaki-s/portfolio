@@ -1,17 +1,16 @@
 import { Button, Typography } from "@mui/material";
 import { Schedule } from "../../types";
 import { ModalEditSchedule } from "../ModalEditSchedule/ModalEditSchedule";
-import { useEditModal } from "../ScheduleListTable/ScheduleListTable.hooks";
+import { useEditForm } from "../../hooks/useEditForm";
 
 type Props = {
   schedule: Schedule;
 };
 export const CalendarDateCellScheduleUnit = ({ schedule }: Props) => {
-  const { editModalIsOpen, setEditModalIsopen, onClickEditModal } =
-    useEditModal();
+  const { editFormIsOpen, setEditFormIsopen, onClickEditForm } = useEditForm();
   return (
     <>
-      <Button sx={{ width: "150px" }} onClick={() => onClickEditModal()}>
+      <Button sx={{ width: "150px" }} onClick={() => onClickEditForm()}>
         <Typography
           maxWidth={"100%"}
           variant="body2"
@@ -28,9 +27,9 @@ export const CalendarDateCellScheduleUnit = ({ schedule }: Props) => {
         </Typography>
       </Button>
       <ModalEditSchedule
-        open={editModalIsOpen}
+        open={editFormIsOpen}
         handleClose={() => {
-          setEditModalIsopen(false);
+          setEditFormIsopen(false);
         }}
         targetSchedule={schedule}
       />

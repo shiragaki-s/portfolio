@@ -14,7 +14,7 @@ export const ScheduleFormTitle = ({ schedule, setNewSchedule }: Props) => {
       margin="dense"
       size="small"
       data-testid="form-title"
-      defaultValue={schedule.title}
+      value={schedule.title}
       onChange={(e) => {
         const newSchedule = { ...schedule, title: e.target.value };
         setNewSchedule(newSchedule);

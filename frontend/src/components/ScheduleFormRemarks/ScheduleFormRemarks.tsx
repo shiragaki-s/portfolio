@@ -16,7 +16,7 @@ export const ScheduleFormRemarks = ({ schedule, setNewSchedule }: Props) => {
       variant="filled"
       margin="dense"
       size="small"
-      defaultValue={schedule.remarks}
+      value={schedule.remarks}
       onChange={(e) => {
         const newSchedule = { ...schedule, remarks: e.target.value };
         setNewSchedule(newSchedule);

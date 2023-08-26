@@ -19,7 +19,7 @@ export const ScheduleFormCompanyFeature = ({
       variant="filled"
       margin="dense"
       size="small"
-      defaultValue={schedule.company.interestFeatures}
+      value={schedule.company.interestFeatures}
       disabled={schedule.company.id !== -1}
       onChange={(e) => {
         const newCompany = {

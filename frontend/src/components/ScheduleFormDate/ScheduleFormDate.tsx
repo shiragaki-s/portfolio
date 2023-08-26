@@ -32,7 +32,7 @@ export const ScheduleFormDate = ({ schedule, setNewSchedule }: Props) => {
         <TimePicker
           label="時間"
           data-testid="form-time"
-          defaultValue={schedule.time}
+          value={schedule.time}
           onChange={(value) => {
             if (value !== null) {
               const newSchedule = { ...schedule, time: value };
@@ -47,7 +47,7 @@ export const ScheduleFormDate = ({ schedule, setNewSchedule }: Props) => {
       <DateTimePicker
         label="時間"
         data-testid="form-time"
-        defaultValue={scheduleDateTime}
+        value={scheduleDateTime}
         onChange={(value) => {
           if (value !== null) {
             const newSchedule = { ...schedule, date: value, time: value };
