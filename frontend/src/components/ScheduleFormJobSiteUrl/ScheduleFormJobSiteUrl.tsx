@@ -18,7 +18,6 @@ export const ScheduleFormJobSiteUrl = ({
       variant="filled"
       margin="dense"
       size="small"
-      // defaultValue={schedule.jobChangeSite.url}
       value={schedule.jobChangeSite.url}
       disabled={schedule.jobChangeSite.id !== -1}
       onChange={(e) => {

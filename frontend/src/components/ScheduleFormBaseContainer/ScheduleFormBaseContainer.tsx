@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dayjs } from "dayjs";
 import { Schedule } from "../../types";
 import { useRegisterSchedule } from "../../hooks/useRegisterSchedule";
@@ -17,14 +17,18 @@ export const ScheduleFormBaseContainer = ({
   schedule,
   registerDate,
 }: Props) => {
-  const [newSchedule, setNewSchedule] = useState<Schedule>(
-    registerDate
-      ? {
-          ...schedule,
-          date: registerDate,
-        }
-      : { ...schedule }
-  );
+  const [newSchedule, setNewSchedule] = useState<Schedule>(schedule);
+
+  useEffect(() => {
+    setNewSchedule(
+      registerDate
+        ? {
+            ...schedule,
+            date: registerDate,
+          }
+        : { ...schedule }
+    );
+  }, [schedule.id]);
 
   const { executeRegisterSchedulRequest } = useRegisterSchedule();
   const { executeDeleteSchedulRequest } = useDeleteSchedule();

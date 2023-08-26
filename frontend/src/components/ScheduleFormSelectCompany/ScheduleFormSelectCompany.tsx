@@ -12,8 +12,6 @@ export const ScheduleFormSelectCompany = ({
   companyList,
   setNewSchedule,
 }: Props) => {
-  console.log("schedule.id");
-  console.log(schedule.id);
   return (
     <FormControl fullWidth>
       <InputLabel id="companyLabel">会社名</InputLabel>
