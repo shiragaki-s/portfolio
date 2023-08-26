@@ -7,7 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import { AppDrawerMenu } from "../AppDrawerMenu/AppDrawerMenu";
 
@@ -31,7 +31,8 @@ export const AppMainHeader = () => {
             sx={{ mr: 2 }}
             onClick={menuClick}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
+            menu
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             スケジュール管理
