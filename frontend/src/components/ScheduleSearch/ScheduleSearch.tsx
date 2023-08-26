@@ -8,67 +8,20 @@ import { ScheduleSearchButton } from "../ScheduleSearchButton/ScheduleSearchButt
 
 export const ScheduleSearch = () => {
   return (
-    <>
-      {/* 領域１ */}
-      {/* <Table sx={{ height: "auto", border: 0 }}>
-        <TableHead>
-          <TableRow sx={{ height: "10px", width: "50px" }}>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody sx={{ height: "10px" }}>
-          <TableRow>
-            <TableCell>予定日：</TableCell>
-            <TableCell>
-              <Box display={"flex"}>
-                <input />
-                〜
-                <input />
-              </Box>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>会社名：</TableCell>
-            <TableCell>
-              <input />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>転職サイト：</TableCell>
-            <TableCell>
-              <input />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>希望度：</TableCell>
-            <TableCell>
-              <input />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>タイトル：</TableCell>
-            <TableCell>
-              <input />
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table> */}
-      {/* 領域２ */}
-      <Box
-        display={"flex"}
-        sx={{
-          whiteSpace: "nowrap",
-          margin: "20px",
-        }}
-      >
-        <ScheduleSearchDate />
-        <ScheduleSearchCompany />
-        <ScheduleSearchJobChangeSite />
-        <ScheduleSearchDesireLevel />
-        <ScheduleSearchTitle />
-        <ScheduleSearchButton />
-      </Box>
-    </>
+    <Box
+      display={"flex"}
+      sx={{
+        whiteSpace: "nowrap",
+        padding: "20px",
+        backgroundColor: "#4e73c054",
+      }}
+    >
+      <ScheduleSearchDate />
+      <ScheduleSearchTitle />
+      <ScheduleSearchCompany />
+      <ScheduleSearchJobChangeSite />
+      <ScheduleSearchDesireLevel />
+      <ScheduleSearchButton />
+    </Box>
   );
 };

@@ -14,6 +14,7 @@ export const ScheduleSearchTitle = () => {
         size="small"
         value={title}
         // disabled={schedule.jobChangeSite.id !== -1}
+        // sx={{ paddingTop: "3px" }}
         onChange={(e) => {
           setTitle(e.target.value);
         }}

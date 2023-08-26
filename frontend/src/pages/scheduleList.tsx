@@ -10,10 +10,10 @@ import { ScheduleSearch } from "../components/ScheduleSearch/ScheduleSearch";
 export default function scheduleList() {
   return (
     <>
-      <Box margin={"100px"}>
+      <Box marginBottom={"65px"}>
         <AppMainHeader />
       </Box>
-      <Box marginBottom={"50px"}>
+      <Box>
         <ScheduleSearch />
       </Box>
       <ScheduleListTable />

@@ -9,7 +9,7 @@ export const ScheduleSearchDate = () => {
   const [startDateTime, setStartDateTime] = useState<Dayjs>();
   const [endDateTime, setEndDateTime] = useState<Dayjs>();
   return (
-    <Box display={"flex"} sx={{ marginRight: "20px" }}>
+    <Box display={"flex"} sx={{ marginRight: "20px", height: "5px" }}>
       <p>予定日：</p>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
