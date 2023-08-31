@@ -10,12 +10,12 @@ import {
 import { useState } from "react";
 import { useEditForm } from "../../hooks/useEditForm";
 import { Schedule } from "../../types";
-import { useScheduleList } from "../../hooks/useScheduleList";
 import { defaultSchedule } from "../../utils/calendarUtill";
 import { ScheduleFormBaseContainer } from "../ScheduleFormBaseContainer/ScheduleFormBaseContainer";
-
-export const ScheduleListTable = () => {
-  const { schedules } = useScheduleList();
+type Props = {
+  searchResultSchedules: Schedule[];
+};
+export const ScheduleListTable = ({ searchResultSchedules }: Props) => {
   const { editFormIsOpen, setEditFormIsopen, onClickEditForm } = useEditForm();
   const [targetSchedule, setTargetSchedule] =
     useState<Schedule>(defaultSchedule);
@@ -34,7 +34,7 @@ export const ScheduleListTable = () => {
               </TableRow>
             </TableHead>
             <TableBody sx={{ height: "10px" }}>
-              {schedules.map((schedule) => (
+              {searchResultSchedules.map((schedule) => (
                 <TableRow
                   key={schedule.id}
                   onClick={() => {
