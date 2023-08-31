@@ -1,34 +1,44 @@
 import { Box } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
 
-import { useState } from "react";
+import { ScheduleCondition } from "../../pages/scheduleList";
 
-export const ScheduleSearchDate = () => {
-  const [startDateTime, setStartDateTime] = useState<Dayjs>();
-  const [endDateTime, setEndDateTime] = useState<Dayjs>();
+type Props = {
+  scheduleCondition: ScheduleCondition;
+  setScheduleCondition: (scheduleCondition: ScheduleCondition) => void;
+};
+
+export const ScheduleSearchDate = ({
+  scheduleCondition,
+  setScheduleCondition,
+}: Props) => {
   return (
     <Box display={"flex"} sx={{ marginRight: "20px", height: "5px" }}>
       <p>予定日：</p>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
-          label="時間"
           data-testid="form-time"
-          value={startDateTime}
-          onChange={(value) => {
-            value != null && setStartDateTime(value);
+          value={scheduleCondition.startDate}
+          sx={{ width: "300px" }}
+          slotProps={{ textField: { placeholder: "YYYY年MM月DD日 HH時mm分" } }}
+          onChange={(date) => {
+            if (date == null) return;
+            setScheduleCondition({ ...scheduleCondition, startDate: date });
           }}
         />
       </LocalizationProvider>
       <p>〜</p>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
-          label="時間"
           data-testid="form-time"
-          value={endDateTime}
-          onChange={(value) => {
-            value != null && setEndDateTime(value);
+          value={scheduleCondition.endDate}
+          sx={{ width: "300px" }}
+          slotProps={{ textField: { placeholder: "YYYY年MM月DD日 HH時mm分" } }}
+          onChange={(date) => {
+            if (date == null) return;
+            scheduleCondition.endDate = date;
+            setScheduleCondition({ ...scheduleCondition, endDate: date });
           }}
         />
       </LocalizationProvider>

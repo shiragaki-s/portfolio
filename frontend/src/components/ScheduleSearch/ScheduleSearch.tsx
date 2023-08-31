@@ -5,8 +5,19 @@ import { ScheduleSearchJobChangeSite } from "../ScheduleSearchJobChangeSite/Sche
 import { ScheduleSearchDesireLevel } from "../ScheduleSearchDesireLevel/ScheduleSearchDesireLevel";
 import { ScheduleSearchTitle } from "../ScheduleSearchTitle/ScheduleSearchTitle";
 import { ScheduleSearchButton } from "../ScheduleSearchButton/ScheduleSearchButton";
+import { ScheduleCondition } from "../../pages/scheduleList";
+import { Schedule } from "../../types";
 
-export const ScheduleSearch = () => {
+type Props = {
+  scheduleCondition: ScheduleCondition;
+  setScheduleCondition: (scheduleCondition: ScheduleCondition) => void;
+  setSearchResultSchedules: (searchResultSchedules: Schedule[]) => void;
+};
+
+export const ScheduleSearch = ({
+  scheduleCondition,
+  setScheduleCondition,
+}: Props) => {
   return (
     <Box
       display={"flex"}
@@ -16,11 +27,15 @@ export const ScheduleSearch = () => {
         backgroundColor: "#4e73c054",
       }}
     >
-      <ScheduleSearchDate />
+      <ScheduleSearchDate
+        scheduleCondition={scheduleCondition}
+        setScheduleCondition={setScheduleCondition}
+      />
       <ScheduleSearchTitle />
       <ScheduleSearchCompany />
       <ScheduleSearchJobChangeSite />
       <ScheduleSearchDesireLevel />
+      {/* <ScheduleSearchButton scheduleCondition={scheduleCondition} setSearchResultSchedules/> */}
       <ScheduleSearchButton />
     </Box>
   );
