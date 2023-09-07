@@ -1,7 +1,16 @@
 import { Box, TextField } from "@mui/material";
 import { useState } from "react";
+import { ScheduleCondition } from "../../pages/scheduleList";
 
-export const ScheduleSearchTitle = () => {
+type Props = {
+  scheduleCondition: ScheduleCondition;
+  setScheduleCondition: (scheduleCondition: ScheduleCondition) => void;
+};
+
+export const ScheduleSearchTitle = ({
+  scheduleCondition,
+  setScheduleCondition,
+}: Props) => {
   const [title, setTitle] = useState<string>("");
   return (
     <Box display={"flex"} sx={{ marginRight: "20px" }}>
@@ -16,6 +25,7 @@ export const ScheduleSearchTitle = () => {
         // disabled={schedule.jobChangeSite.id !== -1}
         // sx={{ paddingTop: "3px" }}
         onChange={(e) => {
+          setScheduleCondition({ ...scheduleCondition, title: e.target.value });
           setTitle(e.target.value);
         }}
       />

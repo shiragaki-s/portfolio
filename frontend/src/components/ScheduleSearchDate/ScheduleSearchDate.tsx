@@ -3,6 +3,8 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import { ScheduleCondition } from "../../pages/scheduleList";
+import { useScheduleList } from "../../hooks/useScheduleList";
+import { Schedule } from "../../types";
 
 type Props = {
   scheduleCondition: ScheduleCondition;
