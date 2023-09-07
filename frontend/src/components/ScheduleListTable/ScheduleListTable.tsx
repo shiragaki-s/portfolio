@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useEditForm } from "../../hooks/useEditForm";
 import { Schedule } from "../../types";
 import { defaultSchedule } from "../../utils/calendarUtill";
@@ -19,6 +19,22 @@ export const ScheduleListTable = ({ searchResultSchedules }: Props) => {
   const { editFormIsOpen, setEditFormIsopen, onClickEditForm } = useEditForm();
   const [targetSchedule, setTargetSchedule] =
     useState<Schedule>(defaultSchedule);
+
+  const sortSchedules = useMemo(() => {
+    return [...searchResultSchedules].sort((a, b) =>
+      a.date.isAfter(b.date) ? 1 : -1
+    );
+  }, [searchResultSchedules]);
+  console.log(sortSchedules);
+
+  // const addFunc = (num1: number, num2: number) => {
+  //   return num1 + num2;
+  // };
+
+  // const addFunc2 = useCallback((num1: number, num2: number) => {
+  //   return num1 + num2;
+  // }, []);
+
   return (
     <>
       <Box display={"flex"}>
@@ -34,7 +50,7 @@ export const ScheduleListTable = ({ searchResultSchedules }: Props) => {
               </TableRow>
             </TableHead>
             <TableBody sx={{ height: "10px" }}>
-              {searchResultSchedules.map((schedule) => (
+              {sortSchedules.map((schedule) => (
                 <TableRow
                   key={schedule.id}
                   onClick={() => {

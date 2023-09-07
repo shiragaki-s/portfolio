@@ -11,12 +11,13 @@ import { Schedule } from "../../types";
 type Props = {
   scheduleCondition: ScheduleCondition;
   setScheduleCondition: (scheduleCondition: ScheduleCondition) => void;
-  setSearchResultSchedules: (searchResultSchedules: Schedule[]) => void;
+  setSearchResultSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
 };
 
 export const ScheduleSearch = ({
   scheduleCondition,
   setScheduleCondition,
+  setSearchResultSchedules,
 }: Props) => {
   return (
     <Box
@@ -31,12 +32,17 @@ export const ScheduleSearch = ({
         scheduleCondition={scheduleCondition}
         setScheduleCondition={setScheduleCondition}
       />
-      <ScheduleSearchTitle />
+      <ScheduleSearchTitle
+        scheduleCondition={scheduleCondition}
+        setScheduleCondition={setScheduleCondition}
+      />
       <ScheduleSearchCompany />
       <ScheduleSearchJobChangeSite />
       <ScheduleSearchDesireLevel />
-      {/* <ScheduleSearchButton scheduleCondition={scheduleCondition} setSearchResultSchedules/> */}
-      <ScheduleSearchButton />
+      <ScheduleSearchButton
+        scheduleCondition={scheduleCondition}
+        setSearchResultSchedules={setSearchResultSchedules}
+      />
     </Box>
   );
 };
