@@ -25,7 +25,6 @@ export const ScheduleListTable = ({ searchResultSchedules }: Props) => {
       a.date.isAfter(b.date) ? 1 : -1
     );
   }, [searchResultSchedules]);
-  console.log(sortSchedules);
 
   // const addFunc = (num1: number, num2: number) => {
   //   return num1 + num2;

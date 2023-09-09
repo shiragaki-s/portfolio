@@ -26,7 +26,6 @@ export const ScheduleSearchTitle = ({
         // sx={{ paddingTop: "3px" }}
         onChange={(e) => {
           setScheduleCondition({ ...scheduleCondition, title: e.target.value });
-          setTitle(e.target.value);
         }}
       />
     </Box>
