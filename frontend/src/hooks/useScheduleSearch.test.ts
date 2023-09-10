@@ -664,7 +664,7 @@ describe("executeSearch", () => {
       },
     ]);
   });
-  it("転職サイト検索", () => {
+  it("希望度検索", () => {
     const scheduleCondition: ScheduleCondition = {
       startDate: null,
       endDate: null,

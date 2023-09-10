@@ -27,6 +27,10 @@ export const ScheduleSearchDesireLevel = ({
             });
             setDesireLevel(newValue);
           } else {
+            setScheduleCondition({
+              ...scheduleCondition,
+              desiredLevel: 0,
+            });
             setDesireLevel(0);
           }
         }}

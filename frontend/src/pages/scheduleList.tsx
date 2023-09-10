@@ -22,7 +22,7 @@ export default function scheduleList() {
       companyId: null,
       jobChangeSiteId: null,
       title: "",
-      desiredLevel: null,
+      desiredLevel: 0,
     }
   );
   useEffect(() => {
