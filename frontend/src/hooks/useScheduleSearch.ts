@@ -24,6 +24,10 @@ export const useScheduleSearch = () => {
           );
         })
         .filter((schedule) => schedule.title.includes(scheduleCondition.title))
+        .filter((schedule) => {
+          if (!scheduleCondition.companyId) return true;
+          return schedule.company.id === scheduleCondition.companyId;
+        })
     );
   };
 

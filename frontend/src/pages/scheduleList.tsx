@@ -19,9 +19,10 @@ export default function scheduleList() {
     {
       startDate: null,
       endDate: null,
-      companyName: "",
-      jobChangeSiteName: "",
+      companyId: null,
+      jobChangeSiteId: null,
       title: "",
+      desiredLevel: null,
     }
   );
   useEffect(() => {
@@ -47,7 +48,8 @@ export default function scheduleList() {
 export type ScheduleCondition = {
   startDate: Dayjs | null;
   endDate: Dayjs | null;
-  companyName: string;
-  jobChangeSiteName: string;
+  companyId: number | null;
+  jobChangeSiteId: number | null;
   title: string;
+  desiredLevel: number | null;
 };
