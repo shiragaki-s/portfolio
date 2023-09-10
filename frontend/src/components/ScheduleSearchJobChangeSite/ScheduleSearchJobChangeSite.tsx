@@ -27,7 +27,7 @@ export const ScheduleSearchJobChangeSite = ({
               ...scheduleCondition,
               jobChangeSiteId: e.target.value,
             });
-            // setJobChangeSiteId(e.target.value);
+            setJobChangeSiteId(e.target.value);
           }
         }}
       >
