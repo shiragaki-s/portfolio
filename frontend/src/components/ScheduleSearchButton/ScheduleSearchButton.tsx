@@ -15,8 +15,6 @@ export const ScheduleSearchButton = ({
   const { executeSearch } = useScheduleSearch();
   const onClickSearch = () => {
     const afterSchedule = executeSearch(scheduleCondition, schedules);
-    console.log("前");
-    console.log(scheduleCondition);
     setSearchResultSchedules(afterSchedule);
   };
   return (
