@@ -44,7 +44,10 @@ export const ScheduleSearch = ({
         scheduleCondition={scheduleCondition}
         setScheduleCondition={setScheduleCondition}
       />
-      <ScheduleSearchDesireLevel />
+      <ScheduleSearchDesireLevel
+        scheduleCondition={scheduleCondition}
+        setScheduleCondition={setScheduleCondition}
+      />
       <ScheduleSearchButton
         scheduleCondition={scheduleCondition}
         setSearchResultSchedules={setSearchResultSchedules}

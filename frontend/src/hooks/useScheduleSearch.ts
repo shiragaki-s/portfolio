@@ -34,6 +34,10 @@ export const useScheduleSearch = () => {
             schedule.jobChangeSite.id === scheduleCondition.jobChangeSiteId
           );
         })
+        .filter((schedule) => {
+          if (!scheduleCondition.desiredLevel) return true;
+          return schedule.desiredLevel === scheduleCondition.desiredLevel;
+        })
     );
   };
 

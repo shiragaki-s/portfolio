@@ -664,4 +664,114 @@ describe("executeSearch", () => {
       },
     ]);
   });
+  it("希望度検索", () => {
+    const scheduleCondition: ScheduleCondition = {
+      startDate: null,
+      endDate: null,
+      companyId: null,
+      jobChangeSiteId: null,
+      title: "",
+      desiredLevel: 4,
+    };
+    const shedules = [
+      {
+        company: {
+          id: 1,
+          interestFeatures: "Lambda",
+          name: "株式会社",
+          url: "https://www.yahoo.co.jp/",
+        },
+        date: dayjs("2023-07-05"),
+        desiredLevel: 1,
+        id: 1,
+        jobChangeSite: {
+          id: 1,
+          name: "wantedly",
+          url: "https://wanted.jp",
+        },
+        remarks: "ブラック",
+        time: dayjs("2023-07-05 12:00"),
+        title: "テストA",
+      },
+      {
+        company: {
+          id: 1,
+          interestFeatures: "Lambda",
+          name: "株式会社",
+          url: "https://www.yahoo.co.jp/",
+        },
+        date: dayjs("2023-08-01"),
+        desiredLevel: 4,
+        id: 2,
+        jobChangeSite: {
+          id: 1,
+          name: "wantedly",
+          url: "https://wanted.jp",
+        },
+        remarks: "ブラック",
+        time: dayjs("2023-08-01 14:15"),
+        title: "テストB",
+      },
+      {
+        company: {
+          id: 2,
+          interestFeatures: "Lambda",
+          name: "株式会社",
+          url: "https://www.yahoo.co.jp/",
+        },
+        date: dayjs("2023-08-02"),
+        desiredLevel: 4,
+        id: 2,
+        jobChangeSite: {
+          id: 3,
+          name: "wantedly",
+          url: "https://wanted.jp",
+        },
+        remarks: "ブラック",
+        time: dayjs("2023-08-02 14:15"),
+        title: "テストC",
+      },
+    ];
+    const result = executeSearch(scheduleCondition, shedules);
+    expect(result).toStrictEqual([
+      {
+        company: {
+          id: 1,
+          interestFeatures: "Lambda",
+          name: "株式会社",
+          url: "https://www.yahoo.co.jp/",
+        },
+        date: dayjs("2023-08-01"),
+        desiredLevel: 4,
+        id: 2,
+        jobChangeSite: {
+          id: 1,
+          name: "wantedly",
+          url: "https://wanted.jp",
+        },
+        remarks: "ブラック",
+        time: dayjs("2023-08-01 14:15"),
+        title: "テストB",
+      },
+      {
+        company: {
+          id: 2,
+          interestFeatures: "Lambda",
+          name: "株式会社",
+          url: "https://www.yahoo.co.jp/",
+        },
+        date: dayjs("2023-08-02"),
+        desiredLevel: 4,
+        id: 2,
+        jobChangeSite: {
+          id: 3,
+          name: "wantedly",
+          url: "https://wanted.jp",
+        },
+        remarks: "ブラック",
+        time: dayjs("2023-08-02 14:15"),
+        title: "テストC",
+      },
+    ]);
+  });
 });
