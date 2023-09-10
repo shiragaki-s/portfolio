@@ -40,7 +40,10 @@ export const ScheduleSearch = ({
         scheduleCondition={scheduleCondition}
         setScheduleCondition={setScheduleCondition}
       />
-      <ScheduleSearchJobChangeSite />
+      <ScheduleSearchJobChangeSite
+        scheduleCondition={scheduleCondition}
+        setScheduleCondition={setScheduleCondition}
+      />
       <ScheduleSearchDesireLevel />
       <ScheduleSearchButton
         scheduleCondition={scheduleCondition}

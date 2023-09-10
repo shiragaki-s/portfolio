@@ -1,8 +1,16 @@
 import { Box, MenuItem, Select } from "@mui/material";
 import { useJobChangeSiteList } from "../../hooks/useJobChangeSiteList";
 import { useState } from "react";
+import { ScheduleCondition } from "../../pages/scheduleList";
 
-export const ScheduleSearchJobChangeSite = () => {
+type Props = {
+  scheduleCondition: ScheduleCondition;
+  setScheduleCondition: (scheduleCondition: ScheduleCondition) => void;
+};
+export const ScheduleSearchJobChangeSite = ({
+  scheduleCondition,
+  setScheduleCondition,
+}: Props) => {
   const { jobChangeSiteList } = useJobChangeSiteList();
   const [jobChangeSiteId, setJobChangeSiteId] = useState<number>(-1);
   return (
@@ -14,8 +22,13 @@ export const ScheduleSearchJobChangeSite = () => {
         id="companyId"
         value={jobChangeSiteId}
         onChange={(e) => {
-          typeof e.target.value === "number" &&
+          if (typeof e.target.value === "number") {
+            setScheduleCondition({
+              ...scheduleCondition,
+              jobChangeSiteId: e.target.value,
+            });
             setJobChangeSiteId(e.target.value);
+          }
         }}
       >
         <MenuItem value={-1}>選択してください</MenuItem>

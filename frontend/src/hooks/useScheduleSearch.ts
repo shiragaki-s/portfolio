@@ -28,6 +28,12 @@ export const useScheduleSearch = () => {
           if (!scheduleCondition.companyId) return true;
           return schedule.company.id === scheduleCondition.companyId;
         })
+        .filter((schedule) => {
+          if (!scheduleCondition.jobChangeSiteId) return true;
+          return (
+            schedule.jobChangeSite.id === scheduleCondition.jobChangeSiteId
+          );
+        })
     );
   };
 
