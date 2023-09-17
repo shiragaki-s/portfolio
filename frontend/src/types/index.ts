@@ -1,4 +1,5 @@
 import { Dayjs } from "dayjs";
+import { UseAuthenticator } from "@aws-amplify/ui-react-core";
 
 export type Schedule = {
   id: number;
@@ -38,3 +39,5 @@ export type ApiResponse<T> = {
   errorMessage: string;
   data?: T;
 };
+
+export type SignOut = UseAuthenticator["signOut"];

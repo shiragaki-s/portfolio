@@ -9,8 +9,13 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { AppDrawerMenu } from "../AppDrawerMenu/AppDrawerMenu";
+import { SignOut } from "../../types";
 
-export const AppMainHeader = () => {
+type Props = {
+  signOut: SignOut | undefined;
+};
+
+export const AppMainHeader = ({ signOut }: Props) => {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const menuClick = () => {
     setDrawerOpened(true);
@@ -37,7 +42,9 @@ export const AppMainHeader = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             スケジュール管理
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={() => signOut?.()}>
+            ログアウト
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer

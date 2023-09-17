@@ -1,16 +1,18 @@
 import { Box, List, ListItem } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 type Props = {
   onClickMenuClose: () => void;
 };
 export const AppDrawerMenu = ({ onClickMenuClose }: Props) => {
+  // const navigation = useNavigate();
   return (
     <Box>
       <List>
-        <Link onClick={onClickMenuClose} to="/calendar">
+        <Link onClick={() => onClickMenuClose()} to="/">
           <ListItem>カレンダー</ListItem>
         </Link>
-        <Link onClick={onClickMenuClose} to="/scheduleList">
+        <Link onClick={() => onClickMenuClose()} to="/scheduleList">
           <ListItem>スケジュール一覧</ListItem>
         </Link>
       </List>
