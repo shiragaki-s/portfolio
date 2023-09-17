@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { AppMainHeader } from "../components/AppMainHeader/AppMainHeader";
 import { ScheduleListTable } from "../components/ScheduleListTable/ScheduleListTable";
 import { ScheduleSearch } from "../components/ScheduleSearch/ScheduleSearch";
 import { useScheduleList } from "../hooks/useScheduleList";
@@ -12,7 +11,7 @@ import { Dayjs } from "dayjs";
 // import { Inter } from '@/components/hoge'
 
 export default function scheduleList() {
-  const { schedules, setSchedules } = useScheduleList(); // 検索をかけていないオリジナルの配列
+  const { schedules } = useScheduleList(); // 検索をかけていないオリジナルの配列
   const [searchResultSchedules, setSearchResultSchedules] =
     useState<Schedule[]>(schedules);
   const [scheduleCondition, setScheduleCondition] = useState<ScheduleCondition>(
@@ -30,9 +29,6 @@ export default function scheduleList() {
   }, [schedules]);
   return (
     <>
-      <Box marginBottom={"65px"}>
-        <AppMainHeader />
-      </Box>
       <Box>
         <ScheduleSearch
           scheduleCondition={scheduleCondition}
