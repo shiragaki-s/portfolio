@@ -12,7 +12,7 @@ import { AppDrawerMenu } from "../AppDrawerMenu/AppDrawerMenu";
 import { SignOut } from "../../types";
 
 type Props = {
-  signOut: SignOut | undefined;
+  signOut: SignOut;
 };
 
 export const AppMainHeader = ({ signOut }: Props) => {
@@ -42,7 +42,7 @@ export const AppMainHeader = ({ signOut }: Props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             スケジュール管理
           </Typography>
-          <Button color="inherit" onClick={() => signOut?.()}>
+          <Button color="inherit" onClick={() => signOut()}>
             ログアウト
           </Button>
         </Toolbar>
