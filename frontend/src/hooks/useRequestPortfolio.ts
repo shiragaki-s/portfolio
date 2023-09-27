@@ -1,4 +1,4 @@
-import { ApiResponse } from "../types";
+import { useUserInfo } from "./useUserInfo";
 
 const BASE_URL = "http://localhost:5001/";
 type URL = "calendar" | "company" | "job_change_site" | "delete";
@@ -9,11 +9,19 @@ type Response<T> = {
 };
 
 export const useRequestPortfolio = () => {
+  const { userToken } = useUserInfo();
   const request = async <T>(
     url: URL,
     option: RequestInit
   ): Promise<Response<T>> => {
-    const res = await fetch(BASE_URL + url, option);
+    console.log(userToken);
+    const newHeaders = option.headers
+      ? { ...option.headers, Authorization: userToken }
+      : { Authorization: userToken };
+    const res = await fetch(BASE_URL + url, {
+      ...option,
+      headers: newHeaders,
+    });
     if (!res.ok) {
       return {
         errorMessage: res.statusText,

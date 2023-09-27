@@ -41,3 +41,5 @@ export type ApiResponse<T> = {
 };
 
 export type SignOut = UseAuthenticator["signOut"];
+
+export type User = UseAuthenticator["user"];

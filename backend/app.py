@@ -1,4 +1,6 @@
+from functools import wraps
 import json
+# from backend.verify import verify_token
 # from backend.models.company import Company
 # from backend.models.job_change_site import JobChangeSite
 from flask import Flask, request
@@ -6,6 +8,7 @@ import psycopg2
 # from flask_cors import cross_origin
 from flask_cors import CORS
 import psycopg2.extras
+import jwt
 
 
 app = Flask(__name__)
@@ -24,18 +27,48 @@ def index():
     return "hello,flask"
 
 
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        region = 'ap-northeast-1'
+        user_pool_id = 'ap-northeast-1_Fb83n7Ap6'
+        client_id = '67ihhmjsetfg8s8aa57udbqp3q'
+
+        issuer = f'https://cognito-idp.{region}.amazonaws.com/{user_pool_id}'
+        jwks_url = f'{issuer}/.well-known/jwks.json'
+
+        jwks_client = jwt.PyJWKClient(jwks_url)
+        signing_key = jwks_client.get_signing_key_from_jwt(token)
+
+        token = jwt.decode(
+            token,
+            signing_key.key,
+            algorithms=["RS256"],  # RS256
+            # audience=client_id,
+            issuer=issuer
+        )
+        print(token['token_use'])
+        if token['token_use'] != 'access':
+            raise Exception('Invalid token_use')
+        return f(token, *args, **kwargs)
+    return decorated
+
+
 @app.route("/calendar", methods=["GET"])
+@token_required
 # @cross_origin(origins=["http://localhost:3000"], methods=["GET"])
-def calendar():
+def calendar(f):
     with connection:
         schedules = get_schedules(connection)
         companies = get_companies(connection)
         jobChangeSites = get_jobChangeSite(connection)
-        return {"schedules": schedules, "companies": companies, "jobChangeSites": jobChangeSites}
+    return {"schedules": schedules, "companies": companies, "jobChangeSites": jobChangeSites}
 
 
 @app.route("/calendar", methods=["POST"])
-def update_calendar():
+@token_required
+def update_calendar(f):
     # リクエストのJSONデータを取り出す
     data = request.get_json()  # pythonのオブジェクトとしてJSONを取り出す
     # スケジュールの更新処理なのか新規登録処理なのか判定
@@ -79,7 +112,8 @@ def update_calendar():
 
 
 @app.route("/delete", methods=["POST"])
-def delete_schedule():
+@token_required
+def delete_schedule(f):
     args = request.get_json()
     with connection:
         with connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
