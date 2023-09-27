@@ -1,33 +1,26 @@
 import { useEffect } from "react";
 import { useInitialize } from "./AppInitialize.hooks";
+import { useUserInfo } from "../../hooks/useUserInfo";
 // import { handlers } from "@/mocks/handlers";
 // import { rest, setupWorker } from "msw";
 // import { setupServer } from "msw/node";
+type Props = {
+  nickName: string;
+  token: string;
+};
 
-export const AppInitialize = () => {
+export const AppInitialize = ({ nickName, token }: Props) => {
+  const { setUserToken, userToken, setUserNickName } = useUserInfo();
   const { loadDateFromDB } = useInitialize();
   useEffect(() => {
-    // if (typeof window === "undefined") {
-    //   const serverWorker = setupServer(...handlers);
-    //   serverWorker.listen();
-    //   // @ts-ignore
-    //   window.msw = {
-    //     worker: serverWorker,
-    //     rest: rest,
-    //   };
-    // } else {
-    //   const browserWorker = setupWorker(...handlers);
-    //   browserWorker.start();
-    //   // @ts-ignore
-    //   window.msw = {
-    //     worker: browserWorker,
-    //     rest: rest,
-    //   };
-    // }
+    setUserToken(token);
+    setUserNickName(nickName);
     // バックエンドから初期データの取得を行う
-    loadDateFromDB();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    userToken && loadDateFromDB();
+  }, [userToken]);
 
   return null;
 };

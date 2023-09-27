@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { AppDrawerMenu } from "../AppDrawerMenu/AppDrawerMenu";
 import { SignOut } from "../../types";
+import { useUserInfo } from "../../hooks/useUserInfo";
 
 type Props = {
   signOut: SignOut;
@@ -23,6 +24,7 @@ export const AppMainHeader = ({ signOut }: Props) => {
   const onClickMenuClose = () => {
     setDrawerOpened(false);
   };
+  const { userNickName } = useUserInfo();
   return (
     <Box sx={{ flexGrow: 1, margin: 0 }}>
       <AppBar position="fixed">
@@ -42,6 +44,7 @@ export const AppMainHeader = ({ signOut }: Props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             スケジュール管理
           </Typography>
+          <Typography>{userNickName}さん</Typography>
           <Button color="inherit" onClick={() => signOut()}>
             ログアウト
           </Button>

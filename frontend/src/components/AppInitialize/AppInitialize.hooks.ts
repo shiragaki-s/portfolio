@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import { useScheduleList } from "../../hooks/useScheduleList";
-import { Company, JobChangeSite, NewSchedule } from "../../types";
+import { Company, JobChangeSite, Schedule } from "../../types";
 import { companyListState } from "../../stores/company";
 import { useRequestPortfolio } from "../../hooks/useRequestPortfolio";
 import { jobChangeSiteListState } from "../../stores/jobChangeSite";
@@ -15,9 +15,9 @@ export const useInitialize = () => {
 
   const loadDateFromDB = () => {
     (async function () {
-      // //dateとtimeをdayjs型に変換してSchedule型にする
+      // dateとtimeをdayjs型に変換してSchedule型にする
       const response = await request<{
-        schedules: NewSchedule[];
+        schedules: Schedule[];
         companies: Company[];
         jobChangeSites: JobChangeSite[];
       }>("calendar", { method: "GET" });

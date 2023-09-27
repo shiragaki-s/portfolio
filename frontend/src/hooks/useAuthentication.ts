@@ -26,7 +26,6 @@ export const useAuthentication = () => {
           enabled: true,
         },
       });
-      console.log(user);
     } catch (error) {
       console.log("error signing up:", error);
     }
