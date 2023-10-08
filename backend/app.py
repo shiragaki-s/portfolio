@@ -59,8 +59,9 @@ def token_required(f):
 @token_required
 # @cross_origin(origins=["http://localhost:3000"], methods=["GET"])
 def calendar(f):
+    print(f['username'])
     with connection:
-        schedules = get_schedules(connection)
+        schedules = get_schedules(connection, f['username'])
         companies = get_companies(connection)
         jobChangeSites = get_jobChangeSite(connection)
     return {"schedules": schedules, "companies": companies, "jobChangeSites": jobChangeSites}
@@ -85,10 +86,10 @@ def update_calendar(f):
         with connection:
             with connection.cursor() as cursor:
                 # データを挿入するSQL文を定義します
-                sql = "INSERT INTO public.schedule (title, date, time, company_id, job_change_site_id, desired_level, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
+                sql = "INSERT INTO public.schedule (title, date, time, company_id, job_change_site_id, desired_level, remarks, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id"
                 # 挿入するデータを定義します
                 data = (data['title'], data['date'], data['time'], company_id,
-                        job_site_id, data['desiredLevel'], data['remarks'])
+                        job_site_id, data['desiredLevel'], data['remarks'], f['username'])
                 # SQL文を実行します
                 cursor.execute(sql, data)
                 # cursor.fetchone()['id']の時、型エラー発生
@@ -186,14 +187,17 @@ def schedule_form(data):
     }
 
 
-def get_schedules(connection):
+def get_schedules(connection, user_id):
     with connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
         # データを挿入するSQL文を定義します
         sql = "SELECT * FROM public.schedule INNER JOIN public.company ON public.company.company_id=public.schedule.company_id\
-                  JOIN public.job_change_site ON public.job_change_site.job_change_site_id=public.schedule.job_change_site_id"
+                  JOIN public.job_change_site ON public.job_change_site.job_change_site_id=public.schedule.job_change_site_id\
+                    WHERE user_id=%s"
+        data = [user_id]
+        # data = user_id
         # 挿入するデータを定義します
         # SQL文を実行します
-        cursor.execute(sql)
+        cursor.execute(sql, data)
         connection.commit()
         schedules = cursor.fetchall()
         dict_result = [dict(row) for row in schedules]
