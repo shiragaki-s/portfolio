@@ -1,17 +1,18 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { JobChangeSite, Schedule } from "../../types";
 import { defaultSchedule } from "../../utils/calendarUtill";
+import { useRecoilValue } from "recoil";
+import { jobChangeSiteSelctor } from "../../stores/schedule";
 
 type Props = {
   schedule: Schedule;
-  jobChangeSiteList: JobChangeSite[];
   setNewSchedule: (schedule: Schedule) => void;
 };
 export const ScheduleFormSelectJobSite = ({
   schedule,
-  jobChangeSiteList,
   setNewSchedule,
 }: Props) => {
+  const jobChangeSiteList = useRecoilValue(jobChangeSiteSelctor);
   return (
     <FormControl fullWidth>
       <InputLabel id="jobChangeSiteLabel">転職サイト名</InputLabel>

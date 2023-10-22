@@ -16,6 +16,7 @@ import aws_exports from "./aws-exports";
 
 import { setupWorker } from "msw";
 import { handlers } from "./mocks/handlers";
+import { Suspense } from "react";
 // if (typeof window !== "undefined") {
 //   const browserWorker = setupWorker(...handlers);
 //   browserWorker.start();
@@ -42,8 +43,22 @@ export default function App() {
                 <AppMainHeader signOut={signOut} />
               </Box>
               <Routes>
-                <Route path={`/`} element={<Calendar />} />
-                <Route path={`/scheduleList`} element={<ScheduleList />} />
+                <Route
+                  path={`/`}
+                  element={
+                    <Suspense fallback="読み込み中">
+                      <Calendar />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path={`/scheduleList`}
+                  element={
+                    <Suspense>
+                      <ScheduleList />
+                    </Suspense>
+                  }
+                />
                 <Route path={`/login`} element={<Login />} />
               </Routes>
             </BrowserRouter>

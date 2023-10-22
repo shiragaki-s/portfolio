@@ -18,7 +18,7 @@ export const CalendarDateCell = ({ date }: Props) => {
   const ref = useRef<HTMLElement>();
   const { isHover } = useHoverState(ref);
   const { open, setRegistModalOpen, onClickRegistModal } = useRegistModal();
-  const { schedules } = useDateSchedules(date); // ここが更新されてない
+  const { schedules } = useDateSchedules(date);
 
   return (
     <Box ref={ref} border={"solid"} width={"150px"} height={"150px"}>

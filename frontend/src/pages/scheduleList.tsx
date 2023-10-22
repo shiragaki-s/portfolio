@@ -1,19 +1,22 @@
 import { Box } from "@mui/material";
 import { ScheduleListTable } from "../components/ScheduleListTable/ScheduleListTable";
 import { ScheduleSearch } from "../components/ScheduleSearch/ScheduleSearch";
-import { useScheduleList } from "../hooks/useScheduleList";
 import { useEffect, useState } from "react";
 import { Schedule } from "../types";
 import { Dayjs } from "dayjs";
+import { useRecoilValue } from "recoil";
+import { schedulesSelctor } from "../stores/schedule";
 // @を使わないと全部相対パスで書く
 // import { Inter } from '../../../hoge'
 // @を使うと、基点のフォルダからのパスだけでいい
 // import { Inter } from '@/components/hoge'
 
 export default function scheduleList() {
-  const { schedules } = useScheduleList(); // 検索をかけていないオリジナルの配列
-  const [searchResultSchedules, setSearchResultSchedules] =
-    useState<Schedule[]>(schedules);
+  // const { schedules } = useScheduleList(); // 検索をかけていないオリジナルの配列
+  const schedules = useRecoilValue(schedulesSelctor);
+  const [searchResultSchedules, setSearchResultSchedules] = useState<
+    Schedule[]
+  >([]);
   const [scheduleCondition, setScheduleCondition] = useState<ScheduleCondition>(
     {
       startDate: null,
@@ -25,6 +28,14 @@ export default function scheduleList() {
     }
   );
   useEffect(() => {
+    setScheduleCondition({
+      startDate: null,
+      endDate: null,
+      companyId: null,
+      jobChangeSiteId: null,
+      title: "",
+      desiredLevel: 0,
+    });
     setSearchResultSchedules(schedules);
   }, [schedules]);
   return (
