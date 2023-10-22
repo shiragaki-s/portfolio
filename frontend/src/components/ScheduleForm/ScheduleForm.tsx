@@ -35,9 +35,6 @@ export const ScheduleForm = ({
   onClickDelete,
   buttonText,
 }: Props) => {
-  // const { jobChangeSiteList } = useJobChangeSiteList();
-  // const { companyList } = useCompanyList();
-
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: "80%" }}>

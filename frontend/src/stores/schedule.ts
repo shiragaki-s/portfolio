@@ -3,16 +3,6 @@ import { DefaultValue, atom, selector, selectorFamily } from "recoil";
 import { Company, JobChangeSite, Schedule } from "../types";
 import { userTokenState } from "./user";
 
-// atomFamily
-// const scheduleState = atomFamily<Schedule,string>({
-//   key: "scheduleState"
-// })
-// const scheduleIdListState = atom<string[]>({
-//   key: "",
-//   default:[ ]
-// })
-// useRecoilValue(scheduleState(scheduleId))
-
 export const requestCheckerState = atom<string>({
   key: "requestCheckerState",
   default: "",
@@ -59,14 +49,12 @@ export const dataFetchSelector = selector<{
     const res = await fetch("http://localhost:5001/calendar", {
       mode: "cors",
       headers: {
-        // "Content-Type": "application/json",
         Authorization: get(userTokenState),
         Vary: origin,
       },
     });
     if (!res.ok) [];
     const data = await res.json();
-    // const data = await res;
     console.log("data", data);
 
     return data;
@@ -111,7 +99,6 @@ export const getDateSchedule = selectorFamily<Schedule[], Dayjs>({
     (date) =>
     ({ get }) => {
       const result = get(scheduleListState).filter((schedule) => {
-        // (schedule.date as Dayjs).isSame(date)
         dayjs(schedule.date).isSame(date);
       });
       return result;
