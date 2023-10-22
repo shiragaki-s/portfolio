@@ -14,8 +14,6 @@ import { ScheduleFormRemarks } from "../ScheduleFormRemarks/ScheduleFormRemarks"
 import { ScheduleFormDecisionButton } from "../ScheduleFormDecisionButton/ScheduleFormDecisionButton";
 import { ScheduleFormDeleteButton } from "../ScheduleFormDeleteButton/ScheduleFormDeleteButton";
 import { ScheduleFormCancelButton } from "../ScheduleFormCancelButton/ScheduleFormCancelButton";
-import { companySelctor, jobChangeSiteSelctor } from "../../stores/schedule";
-import { useRecoilValue } from "recoil";
 
 type Props = {
   schedule: Schedule;

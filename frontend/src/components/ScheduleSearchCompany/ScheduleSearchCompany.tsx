@@ -1,7 +1,8 @@
 import { Box, MenuItem, Select } from "@mui/material";
-import { useCompanyList } from "../../hooks/useCompanyList";
 import { useState } from "react";
 import { ScheduleCondition } from "../../pages/scheduleList";
+import { useRecoilValue } from "recoil";
+import { companySelctor } from "../../stores/schedule";
 
 type Props = {
   scheduleCondition: ScheduleCondition;
@@ -12,7 +13,7 @@ export const ScheduleSearchCompany = ({
   scheduleCondition,
   setScheduleCondition,
 }: Props) => {
-  const { companyList } = useCompanyList();
+  const companyList = useRecoilValue(companySelctor);
   const [companyId, setCompanyId] = useState<number>(-1);
   return (
     <Box display={"flex"} sx={{ marginRight: "20px" }}>

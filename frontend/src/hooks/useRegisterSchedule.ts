@@ -1,13 +1,9 @@
 import { Schedule } from "../types";
-import { useRegisterCompany } from "./useRegisterCompany";
-import { useRegisterJobChangeSite } from "./useRegisterJobChangeSite";
 import { useRequestPortfolio } from "./useRequestPortfolio";
 import { useScheduleReflesher } from "./useScheduleRefresher";
 
 export const useRegisterSchedule = () => {
   const { request } = useRequestPortfolio();
-  const { executeRegisterCompanyRequest } = useRegisterCompany();
-  const { executeRegisterJobChangeSiteRequest } = useRegisterJobChangeSite();
   const { refreshSchedule } = useScheduleReflesher();
 
   const executeRegisterSchedulRequest = async (schedule: Schedule) => {
@@ -45,12 +41,6 @@ export const useRegisterSchedule = () => {
       body: JSON.stringify(registerData),
     });
     refreshSchedule();
-    console.log("refreshSchedule");
-    executeRegisterCompanyRequest(schedule.company, res.data?.company_id);
-    executeRegisterJobChangeSiteRequest(
-      schedule.jobChangeSite,
-      res.data?.job_site_id
-    );
     if (
       res.errorMessage ||
       res.data == null ||
