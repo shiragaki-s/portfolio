@@ -1,7 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import { Dayjs } from "dayjs";
-import { useRecoilValue } from "recoil";
-import { requestCheckerState, scheduleListState } from "../../stores/schedule";
 import { getMonthlyDateList } from "../../utils/calendarUtill";
 import { CalendarMonthlyChangeButton } from "../CalendarMonthlyChangeButton/CalendarMonthlyChangeButton";
 import { CalendarEmptyDate } from "../CalendarEmptyDate/CalendarEmptyDate";
@@ -14,8 +12,6 @@ type Props = {
 };
 
 export const CalendarMonthly = (props: Props) => {
-  const requestChecker = useRecoilValue(requestCheckerState);
-  const scheduleList = useRecoilValue(scheduleListState);
   const { date, onClickBack, onClickNext } = props;
   const dateList = getMonthlyDateList(date);
   const dayTypeList = ["日", "月", "火", "水", "木", "金", "土"];
@@ -34,10 +30,6 @@ export const CalendarMonthly = (props: Props) => {
           gutterBottom
         >
           {date.format("M")}月{" "}
-          {requestChecker !== ""
-            ? "初期データ取取得済み"
-            : "まだ初回リクエストが返ってきていません"}
-          {JSON.stringify(scheduleList.length)}
         </Typography>
         <CalendarMonthlyChangeButton onClick={onClickNext} text="後月" />
       </Box>

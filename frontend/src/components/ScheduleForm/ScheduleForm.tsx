@@ -1,7 +1,5 @@
 import { Box, FormControl } from "@mui/material";
 import { Schedule } from "../../types";
-import { useJobChangeSiteList } from "../../hooks/useJobChangeSiteList";
-import { useCompanyList } from "../../hooks/useCompanyList";
 import { ScheduleFormDate } from "../ScheduleFormDate/ScheduleFormDate";
 import { ScheduleFormTitle } from "../ScheduleFormTitle/ScheduleFormTitle";
 import { ScheduleFormSelectCompany } from "../ScheduleFormSelectCompany/ScheduleFormSelectCompany";
@@ -35,8 +33,6 @@ export const ScheduleForm = ({
   onClickDelete,
   buttonText,
 }: Props) => {
-  const { jobChangeSiteList } = useJobChangeSiteList();
-  const { companyList } = useCompanyList();
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: "80%" }}>
@@ -47,7 +43,6 @@ export const ScheduleForm = ({
         />
         <ScheduleFormSelectCompany
           schedule={schedule}
-          companyList={companyList}
           setNewSchedule={setNewSchedule}
         />
         <ScheduleFormCompanyName
@@ -60,12 +55,10 @@ export const ScheduleForm = ({
         />
         <ScheduleFormSelectJobSite
           schedule={schedule}
-          jobChangeSiteList={jobChangeSiteList}
           setNewSchedule={setNewSchedule}
         />
         <ScheduleFormJobSiteName
           schedule={schedule}
-          jobChangeSiteList={jobChangeSiteList}
           setNewSchedule={setNewSchedule}
         />
         <ScheduleFormJobSiteUrl

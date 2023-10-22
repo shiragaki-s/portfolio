@@ -1,7 +1,8 @@
 import { Box, MenuItem, Select } from "@mui/material";
-import { useJobChangeSiteList } from "../../hooks/useJobChangeSiteList";
 import { useState } from "react";
 import { ScheduleCondition } from "../../pages/scheduleList";
+import { useRecoilValue } from "recoil";
+import { jobChangeSiteSelctor } from "../../stores/schedule";
 
 type Props = {
   scheduleCondition: ScheduleCondition;
@@ -11,8 +12,8 @@ export const ScheduleSearchJobChangeSite = ({
   scheduleCondition,
   setScheduleCondition,
 }: Props) => {
-  const { jobChangeSiteList } = useJobChangeSiteList();
   const [jobChangeSiteId, setJobChangeSiteId] = useState<number>(-1);
+  const jobChangeSiteList = useRecoilValue(jobChangeSiteSelctor);
   return (
     <Box display={"flex"} sx={{ marginRight: "20px" }}>
       <p>転職サイト名：</p>

@@ -7,11 +7,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useCallback, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useEditForm } from "../../hooks/useEditForm";
 import { Schedule } from "../../types";
 import { defaultSchedule } from "../../utils/calendarUtill";
-import { ScheduleFormBaseContainer } from "../ScheduleFormBaseContainer/ScheduleFormBaseContainer";
+import { ModalEditSchedule } from "../ModalEditSchedule/ModalEditSchedule";
 type Props = {
   searchResultSchedules: Schedule[];
 };
@@ -25,14 +25,6 @@ export const ScheduleListTable = ({ searchResultSchedules }: Props) => {
       a.date.isAfter(b.date) ? 1 : -1
     );
   }, [searchResultSchedules]);
-
-  // const addFunc = (num1: number, num2: number) => {
-  //   return num1 + num2;
-  // };
-
-  // const addFunc2 = useCallback((num1: number, num2: number) => {
-  //   return num1 + num2;
-  // }, []);
 
   return (
     <>
@@ -68,14 +60,15 @@ export const ScheduleListTable = ({ searchResultSchedules }: Props) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {editFormIsOpen && (
-          <ScheduleFormBaseContainer
+        <Suspense>
+          <ModalEditSchedule
+            open={editFormIsOpen}
             handleClose={() => {
               setEditFormIsopen(false);
             }}
-            schedule={targetSchedule}
+            targetSchedule={targetSchedule}
           />
-        )}
+        </Suspense>
       </Box>
     </>
   );

@@ -14,7 +14,6 @@ export const useRequestPortfolio = () => {
     url: URL,
     option: RequestInit
   ): Promise<Response<T>> => {
-    console.log(userToken);
     const newHeaders = option.headers
       ? { ...option.headers, Authorization: userToken }
       : { Authorization: userToken };

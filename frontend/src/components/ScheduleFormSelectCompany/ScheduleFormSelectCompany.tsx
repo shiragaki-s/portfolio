@@ -1,17 +1,18 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Company, Schedule } from "../../types";
 import { defaultSchedule } from "../../utils/calendarUtill";
+import { useRecoilValue } from "recoil";
+import { companySelctor } from "../../stores/schedule";
 
 type Props = {
   schedule: Schedule;
-  companyList: Company[];
   setNewSchedule: (schedule: Schedule) => void;
 };
 export const ScheduleFormSelectCompany = ({
   schedule,
-  companyList,
   setNewSchedule,
 }: Props) => {
+  const companyList = useRecoilValue(companySelctor);
   return (
     <FormControl fullWidth>
       <InputLabel id="companyLabel">会社名</InputLabel>

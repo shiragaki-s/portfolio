@@ -1,14 +1,11 @@
-import { useScheduleList } from "../hooks/useScheduleList";
 import { Schedule } from "../types";
-import { useRegisterCompany } from "./useRegisterCompany";
-import { useRegisterJobChangeSite } from "./useRegisterJobChangeSite";
 import { useRequestPortfolio } from "./useRequestPortfolio";
+import { useScheduleReflesher } from "./useScheduleRefresher";
 
 export const useRegisterSchedule = () => {
-  const { schedules, setSchedules } = useScheduleList();
   const { request } = useRequestPortfolio();
-  const { executeRegisterCompanyRequest } = useRegisterCompany();
-  const { executeRegisterJobChangeSiteRequest } = useRegisterJobChangeSite();
+  const { refreshSchedule } = useScheduleReflesher();
+
   const executeRegisterSchedulRequest = async (schedule: Schedule) => {
     const registerData = {
       id: schedule.id,
@@ -43,12 +40,7 @@ export const useRegisterSchedule = () => {
       },
       body: JSON.stringify(registerData),
     });
-
-    executeRegisterCompanyRequest(schedule.company, res.data?.company_id);
-    executeRegisterJobChangeSiteRequest(
-      schedule.jobChangeSite,
-      res.data?.job_site_id
-    );
+    refreshSchedule();
     if (
       res.errorMessage ||
       res.data == null ||
@@ -60,43 +52,9 @@ export const useRegisterSchedule = () => {
         `schedule_id: ${res.data?.id},company_id: ${res.data?.company_id},job_site_id: ${res.data?.job_site_id}`
       );
       alert("登録に失敗しました。");
-      setSchedules(schedules.filter((schedule) => schedule.id !== schedule.id));
       return;
     }
-
-    const data = res.data;
-    const newCompany = { ...schedule.company, id: res.data.company_id };
-    const newJobChangeSite = {
-      ...schedule.jobChangeSite,
-      id: res.data.job_site_id,
-    };
-    const newSchedule = {
-      ...schedule,
-      id: data.id,
-      company: newCompany,
-      jobChangeSite: newJobChangeSite,
-    };
-    const newSchedules =
-      schedule.id === -1
-        ? insertSchedules(schedules, newSchedule)
-        : updateSchedules(schedules, newSchedule);
-    setSchedules(newSchedules);
   };
+
   return { executeRegisterSchedulRequest };
 };
-
-function updateSchedules(
-  schedules: Schedule[],
-  newSchedule: Schedule
-): Schedule[] {
-  return schedules.map((schedule) =>
-    schedule.id === newSchedule.id ? newSchedule : schedule
-  );
-}
-
-function insertSchedules(
-  schedules: Schedule[],
-  newSchedule: Schedule
-): Schedule[] {
-  return [...schedules, newSchedule];
-}

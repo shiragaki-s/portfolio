@@ -1,9 +1,9 @@
-import { useScheduleList } from "../hooks/useScheduleList";
 import { useRequestPortfolio } from "./useRequestPortfolio";
+import { useScheduleReflesher } from "./useScheduleRefresher";
 
 export const useDeleteSchedule = () => {
-  const { setSchedules } = useScheduleList();
   const { request } = useRequestPortfolio();
+  const { refreshSchedule } = useScheduleReflesher();
   const executeDeleteSchedulRequest = async (scheduleId: number) => {
     const res = await request("delete", {
       method: "POST",
@@ -16,13 +16,7 @@ export const useDeleteSchedule = () => {
     });
 
     if (!res.errorMessage) {
-      // const newSchedules = schedules.filter(
-      //   (schedule: Schedule) => schedule.id !== scheduleId
-      // );
-      // setSchedules(newSchedules);
-      setSchedules((schedules) =>
-        schedules.filter((schedule) => schedule.id !== scheduleId)
-      );
+      refreshSchedule();
       return;
     } else {
       // エラーメッセージ表示

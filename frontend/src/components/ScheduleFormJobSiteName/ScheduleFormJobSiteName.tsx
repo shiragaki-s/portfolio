@@ -3,12 +3,10 @@ import { JobChangeSite, Schedule } from "../../types";
 
 type Props = {
   schedule: Schedule;
-  jobChangeSiteList: JobChangeSite[];
   setNewSchedule: (schedule: Schedule) => void;
 };
 export const ScheduleFormJobSiteName = ({
   schedule,
-  jobChangeSiteList,
   setNewSchedule,
 }: Props) => {
   return (

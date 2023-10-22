@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import { MutableRefObject, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { scheduleListState } from "../../stores/schedule";
+import { schedulesSelctor } from "../../stores/schedule";
 
 export const useHoverState = (
   ref: MutableRefObject<HTMLElement | undefined>
@@ -32,8 +32,7 @@ export const useRegistModal = () => {
 };
 
 export const useDateSchedules = (date: Dayjs) => {
-  const schedules = useRecoilValue(scheduleListState);
-
+  const schedules = useRecoilValue(schedulesSelctor);
   return {
     schedules: schedules.filter(
       // (schedule) => schedule.date.daysInMonth() === date.daysInMonth()
